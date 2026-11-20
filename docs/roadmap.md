@@ -1,6 +1,6 @@
 # Roadmap
 
-Phase 0 establishes the codebase, design tokens, minimal shell, backend foundation, documentation, and checks. It is the only implemented phase.
+Phase 0 established the codebase, design tokens, minimal shell, backend foundation, documentation, and checks. Phase 1 adds the editorial landing page, fictional investigation interaction, and `/verify` placeholder. Later phases remain unimplemented.
 
 | Phase | Scope                              |
 | ----- | ---------------------------------- |

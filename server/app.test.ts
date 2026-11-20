@@ -1,5 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import type { Server } from 'node:http';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { createApp } from './app.js';
 
 let server: Server | undefined;
@@ -27,5 +30,28 @@ describe('HTTP foundation', () => {
 
     const unknown = await fetch(`${base}/api/analysis`);
     expect(unknown.status).toBe(404);
+  });
+
+  it('serves the honest verification placeholder route', async () => {
+    const directory = await mkdtemp(join(tmpdir(), 'proofpath-'));
+    try {
+      await writeFile(
+        join(directory, 'index.html'),
+        '<title>ProofPath</title>',
+      );
+      server = createApp(directory);
+      await new Promise<void>((resolve) =>
+        server!.listen(0, '127.0.0.1', resolve),
+      );
+      const address = server.address();
+      if (!address || typeof address === 'string')
+        throw new Error('No TCP address');
+
+      const response = await fetch(`http://127.0.0.1:${address.port}/verify`);
+      expect(response.status).toBe(200);
+      expect(await response.text()).toContain('<title>ProofPath</title>');
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
   });
 });

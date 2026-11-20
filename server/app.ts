@@ -36,7 +36,9 @@ export function createApp(clientDirectory: string) {
         return;
       }
 
-      if (pathname !== '/' && !pathname.startsWith('/assets/')) {
+      const isPage =
+        pathname === '/' || pathname === '/verify' || pathname === '/verify/';
+      if (!isPage && !pathname.startsWith('/assets/')) {
         response.writeHead(404);
         response.end();
         return;
@@ -44,9 +46,7 @@ export function createApp(clientDirectory: string) {
 
       let decodedPath: string;
       try {
-        decodedPath = decodeURIComponent(
-          pathname === '/' ? '/index.html' : pathname,
-        );
+        decodedPath = decodeURIComponent(isPage ? '/index.html' : pathname);
       } catch {
         response.writeHead(400);
         response.end();
