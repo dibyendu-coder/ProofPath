@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-canvas: #101316;
+  --color-surface: #191d20;
+  --color-ink: #f2efe8;
+  --color-ink-muted: #bcbab5;
+  --color-ink-subtle: #858b8a;
+  --color-line: #303639;
+  --color-accent: #e67d70;
+  --color-risk: #e67d70;
+  --color-verified: #8eae97;
+  --font-display: 'Arial', 'Helvetica Neue', sans-serif;
+  --font-sans: 'Arial', 'Helvetica Neue', sans-serif;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+}
+
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+}
+
+.brand-mark {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 0.25rem;
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brand-mark {
+    transition: transform 220ms ease-out;
+  }
+
+  .brand-mark:hover {
+    transform: rotate(45deg) scale(1.08);
+  }
+}
