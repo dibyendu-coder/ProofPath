@@ -6,6 +6,7 @@ import {
 } from 'node:http';
 import { extname, relative, resolve, sep } from 'node:path';
 import type { HealthResponse } from '../shared/contracts.js';
+import { createIntakeHandler, sendIntakeError } from './intake.js';
 
 const contentTypes: Record<string, string> = {
   '.css': 'text/css; charset=utf-8',
@@ -16,10 +17,22 @@ const contentTypes: Record<string, string> = {
   '.svg': 'image/svg+xml',
 };
 
-export function createApp(clientDirectory: string) {
-  return createServer(
+export function createApp(
+  clientDirectory: string,
+  intake = createIntakeHandler(),
+) {
+  const server = createServer(
     async (request: IncomingMessage, response: ServerResponse) => {
       const pathname = new URL(request.url ?? '/', 'http://localhost').pathname;
+
+      if (pathname === '/api/intake') {
+        try {
+          await intake(request, response);
+        } catch (error) {
+          sendIntakeError(response, error);
+        }
+        return;
+      }
 
       if (pathname === '/api/health' && request.method === 'GET') {
         const payload: HealthResponse = { status: 'ok' };
@@ -79,4 +92,7 @@ export function createApp(clientDirectory: string) {
       }
     },
   );
+  server.headersTimeout = 10_000;
+  server.requestTimeout = 20_000;
+  return server;
 }

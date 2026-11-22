@@ -2,6 +2,7 @@
 import { InvestigationDocument } from './components/InvestigationDocument';
 import { SignalsIndex } from './components/SignalsIndex';
 import { EvidenceGraph } from './components/EvidenceGraph';
+import { InvestigationWorkspace } from './verify/InvestigationWorkspace';
 
 const navigation = [
   ['The offer', '#investigate'],
@@ -48,7 +49,7 @@ function SiteHeader({ placeholder = false }: { placeholder?: boolean }) {
                 </a>
               ))}
               <a className="site-nav__cta" href="/verify">
-                About verification <span aria-hidden="true">↗</span>
+                Start an investigation <span aria-hidden="true">↗</span>
               </a>
             </nav>
           </>
@@ -178,7 +179,7 @@ function LandingPage() {
               </p>
               <a className="decision-cta" href="/verify">
                 <span className="decision-cta__index">04 / Continue</span>
-                <span className="decision-cta__text">See what comes next</span>
+                <span className="decision-cta__text">Open the workspace</span>
                 <span className="decision-cta__arrow" aria-hidden="true">
                   ↗
                 </span>
@@ -196,38 +197,21 @@ function LandingPage() {
   );
 }
 
-function VerifyPlaceholder() {
+function VerifyPage() {
   return (
     <div className="site-shell placeholder-shell">
       <a className="skip-link" href="#main">
         Skip to content
       </a>
       <SiteHeader placeholder />
-      <main id="main" className="placeholder page-width">
-        <p className="eyebrow">
-          <span className="eyebrow__dash" /> ProofPath / next chapter
-        </p>
-        <h1>
-          Verification starts
-          <br />
-          <em>with a question.</em>
-        </h1>
-        <p>
-          The verification workspace is coming in a later phase. No opportunity
-          is analyzed or stored here yet. The offer on the landing page is an
-          interactive fictional demonstration.
-        </p>
-        <a className="text-link" href="/#investigate">
-          Return to the investigation <span aria-hidden="true">↗</span>
-        </a>
-      </main>
+      <InvestigationWorkspace />
     </div>
   );
 }
 
 export function App() {
   return window.location.pathname.replace(/\/$/, '') === '/verify' ? (
-    <VerifyPlaceholder />
+    <VerifyPage />
   ) : (
     <LandingPage />
   );

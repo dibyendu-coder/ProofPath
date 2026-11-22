@@ -16,7 +16,7 @@ describe('landing navigation', () => {
     const menu = screen.getByRole('button', { name: /menu/i });
     expect(
       screen
-        .getByRole('link', { name: /See what comes next/i })
+        .getByRole('link', { name: /Open the workspace/i })
         .getAttribute('href'),
     ).toBe('/verify');
 
@@ -27,17 +27,19 @@ describe('landing navigation', () => {
     expect(menu.getAttribute('aria-expanded')).toBe('false');
   });
 
-  it('labels the verification route as a placeholder', () => {
+  it('opens the source workspace from the verification route', () => {
     window.history.replaceState({}, '', '/verify');
     render(<App />);
 
     expect(
-      screen.getByText(/No opportunity is analyzed or stored here yet/i),
+      screen.getByRole('heading', {
+        name: /Every investigation begins with a source/i,
+      }),
     ).toBeTruthy();
     expect(
       screen
         .getByRole('link', { name: /Return to the investigation/i })
         .getAttribute('href'),
-    ).toBe('/#investigate');
+    ).toBe('/');
   });
 });
