@@ -60,3 +60,54 @@ export type IntakeFailure = {
   processingStatus?: ProcessingStatus;
   warnings?: string[];
 };
+
+export type AnalysisFinding = {
+  id: string;
+  category: string;
+  title: string;
+  severity: 'low' | 'medium' | 'high';
+  explanation: string;
+  quotation: string;
+  uncertainty: 'low' | 'medium' | 'high';
+  origin: string;
+  userCorrected: boolean;
+  start: number;
+  end: number;
+};
+
+export type AnalysisReport = {
+  status: 'complete';
+  analysisId: string;
+  caseId: string;
+  analyzedAt: string;
+  model: string;
+  providerMetrics: {
+    latencyMs: number;
+    requests: number;
+    usage: {
+      promptTokens: number;
+      completionTokens: number;
+      totalTokens: number;
+    } | null;
+  };
+  sourceType: SourceType;
+  evidenceOrigin: string;
+  provenanceAuthenticated: false;
+  opportunityType: string;
+  summary: string;
+  claims: Array<{
+    text: string;
+    quotation: string;
+    origin: string;
+    userCorrected: boolean;
+    start: number;
+    end: number;
+  }>;
+  findings: AnalysisFinding[];
+  rejectedEvidenceCount: number;
+  missingInformation: string[];
+  uncertaintyIndicators: string[];
+  recommendedActions: string[];
+  limitations: string[];
+  risk: { score: number; classification: string; explanation: string };
+};

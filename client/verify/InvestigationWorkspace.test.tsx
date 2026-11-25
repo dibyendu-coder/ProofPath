@@ -1,8 +1,18 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import {
+  cleanup,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { InvestigationWorkspace } from './InvestigationWorkspace';
+import {
+  report as graphReport,
+  reviewedText as graphText,
+} from '../graph/testFixture';
 
 afterEach(() => {
   cleanup();
@@ -38,6 +48,51 @@ async function submitText(
 }
 
 describe('investigation workspace', () => {
+  it('switches a real report to the graph, traces exact reviewed source text, and makes no extra provider request', async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        apiResponse({ ...success, extractedText: graphText }, 201),
+      )
+      .mockResolvedValueOnce(
+        apiResponse({ ...graphReport, caseId: success.caseId }, 200),
+      );
+    vi.stubGlobal('fetch', fetchMock);
+    render(<InvestigationWorkspace />);
+    await submitText(user, graphText);
+    await screen.findByRole('heading', { name: /Your source is ready/i });
+    await user.click(
+      screen.getByRole('button', { name: /Analyze Opportunity/i }),
+    );
+    await screen.findByRole('heading', { name: /The evidence, in context/i });
+    await user.click(screen.getByRole('button', { name: 'Evidence graph' }));
+    await screen.findByRole('heading', { name: 'Follow the evidence.' });
+    const canvas = screen.getByRole('group', { name: 'Pannable graph canvas' });
+    await user.click(
+      within(canvas).getByRole('button', { name: 'Risk finding: Upfront fee' }),
+    );
+    const transformBeforeTrace = (
+      canvas.querySelector('.intelligence-graph__stage') as HTMLElement
+    ).style.transform;
+    await user.click(screen.getByRole('button', { name: /View in source/i }));
+    expect(
+      screen.getByText(graphReport.findings[0].quotation, { selector: 'mark' }),
+    ).toBeTruthy();
+    await user.click(
+      screen.getByRole('button', { name: /Return to evidence graph/i }),
+    );
+    expect(
+      within(canvas)
+        .getByRole('button', { name: 'Risk finding: Upfront fee' })
+        .getAttribute('aria-pressed'),
+    ).toBe('true');
+    expect(
+      (canvas.querySelector('.intelligence-graph__stage') as HTMLElement).style
+        .transform,
+    ).toBe(transformBeforeTrace);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
   it('validates empty text, preserves it across source switches, and resets after success', async () => {
     const user = userEvent.setup();
     const fetchMock = vi.fn().mockResolvedValue(apiResponse(success, 201));
@@ -63,7 +118,7 @@ describe('investigation workspace', () => {
     await user.click(screen.getByRole('button', { name: /Prepare source/i }));
     await screen.findByRole('heading', { name: /Your source is ready/i });
     expect(screen.getByText(success.caseId)).toBeTruthy();
-    expect(screen.getByText('Internship offer')).toBeTruthy();
+    expect(screen.getAllByText('Internship offer').length).toBeGreaterThan(0);
     expect(
       screen.getByText(new Date(success.submittedAt).toLocaleString()),
     ).toBeTruthy();
@@ -75,7 +130,9 @@ describe('investigation workspace', () => {
       }),
     );
     expect(
-      screen.getByText(/AI risk assessment has not yet been performed/),
+      screen.getByText(
+        /No organization or claim has been independently verified/,
+      ),
     ).toBeTruthy();
     await user.click(
       screen.getByRole('button', { name: /Start another investigation/i }),
@@ -186,7 +243,7 @@ describe('investigation workspace', () => {
     expect(screen.getByText('Webpage HTML text')).toBeTruthy();
     expect(screen.getByText('Retrieved webpage text')).toBeTruthy();
     expect(screen.getByText('Careers')).toBeTruthy();
-    expect(screen.getByText('Summer internship')).toBeTruthy();
+    expect(screen.getAllByText('Summer internship').length).toBeGreaterThan(0);
     expect(
       screen.getByText(
         /Source processing is not an authenticity or safety verification/,
@@ -226,7 +283,104 @@ describe('investigation workspace', () => {
     );
     await user.click(screen.getByRole('button', { name: /Prepare source/i }));
     expect((await screen.findAllByText('Screenshot OCR text')).length).toBe(2);
-    expect(screen.getByText('Frontend Engineering Internship')).toBeTruthy();
+    expect(
+      screen.getAllByText('Frontend Engineering Internship').length,
+    ).toBeGreaterThan(0);
+  });
+
+  it('requires an explicit analysis action, preserves edits on failure, and renders supported report', async () => {
+    const user = userEvent.setup();
+    const report = {
+      status: 'complete',
+      analysisId: '28dcbb9e-70b7-41f1-8cd1-c64d3ada3541',
+      caseId: success.caseId,
+      analyzedAt: '2026-11-25T00:00:00.000Z',
+      model: 'openai/gpt-oss-20b',
+      sourceType: 'text',
+      evidenceOrigin: 'user_corrected',
+      provenanceAuthenticated: false,
+      opportunityType: 'internship',
+      summary: 'The message requests a fee.',
+      claims: [],
+      findings: [
+        {
+          id: 'F-01',
+          category: 'payment',
+          title: 'Upfront payment',
+          severity: 'high',
+          uncertainty: 'low',
+          explanation: 'The source requests money.',
+          quotation: 'Pay ₹1,499',
+          origin: 'user_corrected',
+          start: 0,
+          end: 10,
+        },
+      ],
+      rejectedEvidenceCount: 0,
+      missingInformation: ['Employer website'],
+      uncertaintyIndicators: [],
+      recommendedActions: ['Contact employer directly.'],
+      limitations: ['No independent verification.'],
+      risk: {
+        score: 28,
+        classification: 'Caution advised',
+        explanation: 'Heuristic index.',
+      },
+    };
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        apiResponse(
+          {
+            ...success,
+            extractedText: 'Pay ₹1,499 within 30 minutes for an internship.',
+          },
+          201,
+        ),
+      )
+      .mockResolvedValueOnce(
+        apiResponse(
+          {
+            status: 'failed',
+            code: 'not_configured',
+            message: 'AI analysis is not configured on this server.',
+          },
+          503,
+        ),
+      )
+      .mockResolvedValueOnce(apiResponse(report, 200));
+    vi.stubGlobal('fetch', fetchMock);
+    render(<InvestigationWorkspace />);
+    await submitText(user, 'Pay ₹1,499 within 30 minutes for an internship.');
+    await screen.findByRole('heading', { name: /Your source is ready/i });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const review = screen.getByRole('textbox', {
+      name: /Reviewed source text/i,
+    });
+    await user.clear(review);
+    await user.type(
+      review,
+      'Pay ₹1,499 within 30 minutes for an internship. Contact employer first.',
+    );
+    await user.click(
+      screen.getByRole('button', { name: /Analyze Opportunity/i }),
+    );
+    expect(await screen.findByRole('alert')).toHaveProperty(
+      'textContent',
+      'AI analysis is not configured on this server.',
+    );
+    expect((review as HTMLTextAreaElement).value).toContain(
+      'Contact employer first.',
+    );
+    await user.click(screen.getByRole('button', { name: /Retry analysis/i }));
+    expect(
+      await screen.findByRole('heading', { name: /The evidence, in context/i }),
+    ).toBeTruthy();
+    expect(screen.getByText('Caution advised')).toBeTruthy();
+    const body = JSON.parse(fetchMock.mock.calls[2][1].body);
+    expect(body.userCorrected).toBe(true);
+    expect(body.reviewedText).toContain('Contact employer first.');
+    expect(body.confirmed).toBe(true);
   });
 
   it.each([

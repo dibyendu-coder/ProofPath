@@ -10,6 +10,7 @@ import {
 } from './SourceInputs';
 import './workspace.css';
 import { readIntakeResponse } from './readIntakeResponse';
+import { AnalysisReview } from './AnalysisReview';
 
 type Stage =
   'empty' | 'editing' | 'validating' | 'processing' | 'success' | 'failed';
@@ -60,9 +61,11 @@ function validate(
 function PreparedSource({
   result,
   onReset,
+  previewUrl,
 }: {
   result: IntakeSuccess;
   onReset: () => void;
+  previewUrl?: string;
 }) {
   const processingStatus =
     result.processingStatus ??
@@ -102,9 +105,8 @@ function PreparedSource({
         <em>for closer examination.</em>
       </h2>
       <p className="prepared__lead">
-        Source processing is not an authenticity or safety verification. AI risk
-        assessment has not yet been performed; no organization or claim has been
-        verified.
+        Source processing is not an authenticity or safety verification. No
+        organization or claim has been independently verified.
       </p>
       <dl className="prepared__metadata">
         <div>
@@ -206,6 +208,7 @@ function PreparedSource({
           .
         </p>
       )}
+      <AnalysisReview result={result} previewUrl={previewUrl} />
       <button type="button" className="submit-source" onClick={onReset}>
         Start another investigation <span aria-hidden="true">↗</span>
       </button>
@@ -326,7 +329,11 @@ export function InvestigationWorkspace() {
         </p>
       </div>
       {stage === 'success' && result ? (
-        <PreparedSource result={result} onReset={reset} />
+        <PreparedSource
+          result={result}
+          onReset={reset}
+          previewUrl={previewUrl}
+        />
       ) : (
         <div className="workspace__body">
           <div className="workspace__aside">

@@ -7,6 +7,10 @@ import {
 import { extname, relative, resolve, sep } from 'node:path';
 import type { HealthResponse } from '../shared/contracts.js';
 import { createIntakeHandler, sendIntakeError } from './intake.js';
+import {
+  createAnalyzeHandler,
+  sendAnalysisError,
+} from './analysis/analyze-opportunity.js';
 
 const contentTypes: Record<string, string> = {
   '.css': 'text/css; charset=utf-8',
@@ -20,6 +24,7 @@ const contentTypes: Record<string, string> = {
 export function createApp(
   clientDirectory: string,
   intake = createIntakeHandler(),
+  analyze = createAnalyzeHandler(),
 ) {
   const server = createServer(
     async (request: IncomingMessage, response: ServerResponse) => {
@@ -30,6 +35,15 @@ export function createApp(
           await intake(request, response);
         } catch (error) {
           sendIntakeError(response, error);
+        }
+        return;
+      }
+
+      if (pathname === '/api/analyze') {
+        try {
+          await analyze(request, response);
+        } catch (error) {
+          sendAnalysisError(response, error);
         }
         return;
       }

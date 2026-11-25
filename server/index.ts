@@ -1,6 +1,9 @@
 import { resolve } from 'node:path';
 import { z } from 'zod';
 import { createApp } from './app.js';
+import { loadEnvironment } from './load-environment.js';
+
+loadEnvironment();
 
 const port = z.coerce
   .number()
