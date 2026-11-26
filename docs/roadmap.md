@@ -12,7 +12,7 @@ Phases 0, 1, and 1.1 established the project, editorial landing page, fictional 
 | 3.1   | Source processing repair and verification               | Complete locally; deployment budget pending                                 |
 | 4     | Evidence-backed AI risk assessment                      | Implemented locally; live Groq analysis passed; deployment pending          |
 | 5     | Product evidence graph beyond the landing demonstration | Verified locally, including desktop and mobile Chromium; deployment pending |
-| 6     | Verification assistant                                  | Planned                                                                     |
+| 6     | Intelligent verification assistant                      | Implemented locally; deployment pending                                     |
 | 7     | Shareable reports                                       | Planned                                                                     |
 | 8     | Security hardening, testing, deployment                 | Planned                                                                     |
 | 9     | Demo preparation and final polish                       | Planned                                                                     |
@@ -20,3 +20,5 @@ Phases 0, 1, and 1.1 established the project, editorial landing page, fictional 
 OCR is English-first and may misread currency symbols or small text. Scanned-PDF OCR, organization verification, case persistence, and sharing remain outside this phase. The landing graph remains a clearly fictional demonstration; the full product evidence graph belongs to Phase 5.
 
 Phase 5 builds a typed graph from the validated report, with exact source tracing, node inspection, filters, and an accessible text list. It does not independently verify claims or associate actions with individual findings without report support. Phase 5.1 checked the built app at desktop, laptop, tablet, and mobile widths in local Chromium, including touch panning and no horizontal page overflow. Target deployment performance remains unverified.
+
+Phase 6 adds a deterministic, in-browser verification plan, neutral questions and editable drafts, local notes and action history, progress counts, and links between validated findings and plan actions in the graph. It adds no provider request, messaging service, persistence, or change to the original risk assessment. Checklist completion never proves an opportunity is safe.

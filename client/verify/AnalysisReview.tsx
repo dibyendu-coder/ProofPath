@@ -1,10 +1,16 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import type { AnalysisReport, IntakeSuccess } from '../../shared/contracts';
 import { sourceSpan } from '../graph/buildEvidenceGraph';
+import { buildVerificationPlan } from '../verification/buildVerificationPlan';
 
 const EvidenceGraph = lazy(() =>
   import('../graph/EvidenceGraph').then((module) => ({
     default: module.EvidenceGraph,
+  })),
+);
+const VerificationWorkspace = lazy(() =>
+  import('../verification/VerificationWorkspace').then((module) => ({
+    default: module.VerificationWorkspace,
   })),
 );
 
@@ -77,7 +83,22 @@ async function requestReport(
 
 function Report({ report, text }: { report: AnalysisReport; text: string }) {
   const [selected, setSelected] = useState<string | null>(null);
-  const [view, setView] = useState<'report' | 'graph'>('report');
+  const [view, setView] = useState<'report' | 'graph' | 'verification'>(
+    'report',
+  );
+  const plan = useMemo(
+    () => buildVerificationPlan(report, text),
+    [report, text],
+  );
+  const [verificationFocus, setVerificationFocus] = useState<{
+    findingId: string | null;
+    actionId?: string;
+    request: number;
+  }>({ findingId: null, request: 0 });
+  const [graphFocus, setGraphFocus] = useState<{
+    findingId: string | null;
+    request: number;
+  }>({ findingId: null, request: 0 });
   const [sourceHighlight, setSourceHighlight] = useState<{
     start: number;
     end: number;
@@ -120,6 +141,13 @@ function Report({ report, text }: { report: AnalysisReport; text: string }) {
           onClick={() => setView('graph')}
         >
           Evidence graph
+        </button>
+        <button
+          type="button"
+          aria-pressed={view === 'verification'}
+          onClick={() => setView('verification')}
+        >
+          Verification plan
         </button>
       </div>
       <div hidden={view !== 'report'}>
@@ -256,10 +284,39 @@ function Report({ report, text }: { report: AnalysisReport; text: string }) {
             report={report}
             reviewedText={text}
             active={view === 'graph'}
+            verificationActions={plan.actions}
+            focusFindingId={graphFocus.findingId}
+            focusRequest={graphFocus.request}
+            onOpenVerification={(findingId, actionId) => {
+              setVerificationFocus((current) => ({
+                findingId,
+                actionId,
+                request: current.request + 1,
+              }));
+              setView('verification');
+            }}
             onTrace={(start, end) => {
               if (!sourceSpan(text, text.slice(start, end), start, end)) return;
               setSourceHighlight({ start, end });
               setView('report');
+            }}
+          />
+        </Suspense>
+      </div>
+      <div hidden={view !== 'verification'}>
+        <Suspense fallback={<p role="status">Opening verification plan…</p>}>
+          <VerificationWorkspace
+            plan={plan}
+            active={view === 'verification'}
+            focusFindingId={verificationFocus.findingId}
+            focusActionId={verificationFocus.actionId}
+            focusRequest={verificationFocus.request}
+            onViewFinding={(findingId) => {
+              setGraphFocus((current) => ({
+                findingId,
+                request: current.request + 1,
+              }));
+              setView('graph');
             }}
           />
         </Suspense>
@@ -387,7 +444,7 @@ export function AnalysisReview({
         <span aria-hidden="true">↗</span>
       </button>
       {report && state === 'complete' && (
-        <Report report={report} text={reviewedText} />
+        <Report key={report.analysisId} report={report} text={reviewedText} />
       )}
     </div>
   );

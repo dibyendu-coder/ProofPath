@@ -47,6 +47,10 @@ export function filterGraph(
     for (const edge of graph.edges)
       if (edge.type === 'SUPPORTS' && ids.has(edge.from)) ids.add(edge.to);
   }
+  if (filter === 'actions') {
+    for (const edge of graph.edges)
+      if (edge.type === 'ADDRESSES' && ids.has(edge.from)) ids.add(edge.to);
+  }
   return {
     ...graph,
     nodes: graph.nodes.filter((node) => ids.has(node.id)),

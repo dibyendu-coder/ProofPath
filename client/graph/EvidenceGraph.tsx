@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { PointerEvent } from 'react';
 import type { AnalysisReport } from '../../shared/contracts';
+import type { VerificationAction } from '../verification/types';
 import { buildEvidenceGraph } from './buildEvidenceGraph';
 import { filterGraph } from './filterGraph';
 import { layoutGraph, type PlacedNode } from './layoutGraph';
@@ -29,12 +30,14 @@ function Inspector({
   onTrace,
   onFocus,
   onClear,
+  onOpenVerification,
 }: {
   node: GraphNode | null;
   graph: InvestigationGraph;
   onTrace: (start: number, end: number) => void;
   onFocus: (id: string) => void;
   onClear: () => void;
+  onOpenVerification?: (findingId: string | null, actionId?: string) => void;
 }) {
   const finding =
     node?.type === 'RISK_FINDING'
@@ -158,9 +161,45 @@ function Inspector({
           )}
           {node.type === 'VERIFICATION_ACTION' && (
             <p className="intelligence-graph__annotation">
-              Recommended for the opportunity overall. The report does not
-              associate this action with a particular finding.
+              {node.findingIds.length
+                ? 'This action addresses the listed validated finding. Completing it does not remove the finding.'
+                : 'Recommended for the opportunity overall; no specific finding relationship was established.'}
             </p>
+          )}
+          {node.type === 'VERIFICATION_ACTION' &&
+            node.findingIds.map((id) => (
+              <button
+                key={id}
+                type="button"
+                className="intelligence-graph__focus"
+                onClick={() => onFocus(`finding:${id}`)}
+              >
+                View related finding {id}
+              </button>
+            ))}
+          {onOpenVerification &&
+            node.type === 'RISK_FINDING' &&
+            graph.nodes.some(
+              (item) =>
+                item.type === 'VERIFICATION_ACTION' &&
+                item.findingIds.includes(node.findingIds[0]),
+            ) && (
+              <button
+                type="button"
+                className="intelligence-graph__focus"
+                onClick={() => onOpenVerification(node.findingIds[0])}
+              >
+                Open related verification actions
+              </button>
+            )}
+          {onOpenVerification && node.type === 'VERIFICATION_ACTION' && (
+            <button
+              type="button"
+              className="intelligence-graph__focus"
+              onClick={() => onOpenVerification(null, node.id)}
+            >
+              Open in verification plan
+            </button>
           )}
           {node.start !== undefined && node.end !== undefined && (
             <button
@@ -213,15 +252,23 @@ export function EvidenceGraph({
   reviewedText,
   onTrace,
   active,
+  verificationActions,
+  onOpenVerification,
+  focusFindingId,
+  focusRequest,
 }: {
   report: AnalysisReport;
   reviewedText: string;
   onTrace: (start: number, end: number) => void;
   active: boolean;
+  verificationActions?: VerificationAction[];
+  onOpenVerification?: (findingId: string | null, actionId?: string) => void;
+  focusFindingId?: string | null;
+  focusRequest?: number;
 }) {
   const graph = useMemo(
-    () => buildEvidenceGraph(report, reviewedText),
-    [report, reviewedText],
+    () => buildEvidenceGraph(report, reviewedText, verificationActions),
+    [report, reviewedText, verificationActions],
   );
   const [filter, setFilter] = useState<GraphFilter>('all');
   const [severity, setSeverity] = useState('all');
@@ -304,6 +351,26 @@ export function EvidenceGraph({
         y: box.clientHeight / 2 - (node.y + node.height / 2) * previous.scale,
       }));
   };
+  useEffect(() => {
+    if (!active || !focusFindingId || !focusRequest) return;
+    setFilter('findings');
+    setSeverity('all');
+    setExpanded(true);
+    setSelectedId(`finding:${focusFindingId}`);
+  }, [active, focusFindingId, focusRequest]);
+  useEffect(() => {
+    if (!active || !focusFindingId || !focusRequest) return;
+    const node = layout.nodes.find(
+      (item) => item.id === `finding:${focusFindingId}`,
+    );
+    const box = viewport.current;
+    if (node && box)
+      setView((previous) => ({
+        ...previous,
+        x: box.clientWidth / 2 - (node.x + node.width / 2) * previous.scale,
+        y: box.clientHeight / 2 - (node.y + node.height / 2) * previous.scale,
+      }));
+  }, [active, focusFindingId, focusRequest, layout]);
   const pointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if ((event.target as HTMLElement).closest('button')) return;
     drag.current = {
@@ -538,6 +605,7 @@ export function EvidenceGraph({
           onTrace={onTrace}
           onFocus={focus}
           onClear={() => setSelectedId(null)}
+          onOpenVerification={onOpenVerification}
         />
       </div>
       <details className="intelligence-graph__alternative">

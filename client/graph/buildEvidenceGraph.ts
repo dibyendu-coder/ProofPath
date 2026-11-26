@@ -1,4 +1,5 @@
 import type { AnalysisReport } from '../../shared/contracts';
+import type { VerificationAction } from '../verification/types';
 import type {
   GraphEdge,
   GraphNode,
@@ -27,6 +28,7 @@ export function sourceSpan(
 export function buildEvidenceGraph(
   report: AnalysisReport,
   reviewedText: string,
+  verificationActions?: VerificationAction[],
 ): InvestigationGraph {
   const nodes: GraphNode[] = [];
   const edges: GraphEdge[] = [];
@@ -174,23 +176,47 @@ export function buildEvidenceGraph(
       addEdge(id, opportunityId, 'REMAINS_UNCONFIRMED');
     }
   }
-  const seenActions = new Set<string>();
-  for (const action of report.recommendedActions) {
-    const key = action.trim().toLowerCase();
-    if (!key || seenActions.has(key)) continue;
-    seenActions.add(key);
-    const id = `action:${encodeURIComponent(key)}`;
-    addNode({
-      id,
-      type: 'VERIFICATION_ACTION',
-      title: 'Independent check',
-      description: action,
-      origin: 'report_recommendation',
-      findingIds: [],
-      extractionMethod: method,
-    });
-    // The API supplies no action-to-finding association. Do not invent one.
-    addEdge(opportunityId, id, 'REQUIRES_VERIFICATION');
+  if (verificationActions) {
+    for (const action of verificationActions) {
+      if (
+        !addNode({
+          id: action.id,
+          type: 'VERIFICATION_ACTION',
+          title: action.title,
+          description: action.description,
+          origin: action.basis,
+          findingIds: [...action.findingIds],
+          extractionMethod: method,
+        })
+      )
+        continue;
+      const linked = action.findingIds.filter((findingId) =>
+        nodeIds.has(`finding:${findingId}`),
+      );
+      if (linked.length) {
+        for (const findingId of linked)
+          addEdge(action.id, `finding:${findingId}`, 'ADDRESSES');
+      } else addEdge(opportunityId, action.id, 'REQUIRES_VERIFICATION');
+    }
+  } else {
+    const seenActions = new Set<string>();
+    for (const action of report.recommendedActions) {
+      const key = action.trim().toLowerCase();
+      if (!key || seenActions.has(key)) continue;
+      seenActions.add(key);
+      const id = `action:${encodeURIComponent(key)}`;
+      addNode({
+        id,
+        type: 'VERIFICATION_ACTION',
+        title: 'Independent check',
+        description: action,
+        origin: 'report_recommendation',
+        findingIds: [],
+        extractionMethod: method,
+      });
+      // The API supplies no action-to-finding association. Do not invent one.
+      addEdge(opportunityId, id, 'REQUIRES_VERIFICATION');
+    }
   }
   return { nodes, edges, report };
 }

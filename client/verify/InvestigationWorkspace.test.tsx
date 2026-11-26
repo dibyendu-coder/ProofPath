@@ -48,6 +48,50 @@ async function submitText(
 }
 
 describe('investigation workspace', () => {
+  it('keeps verification progress across report and graph views and links findings both ways without another API call', async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        apiResponse({ ...success, extractedText: graphText }, 201),
+      )
+      .mockResolvedValueOnce(
+        apiResponse({ ...graphReport, caseId: success.caseId }, 200),
+      );
+    vi.stubGlobal('fetch', fetchMock);
+    render(<InvestigationWorkspace />);
+    await submitText(user, graphText);
+    await screen.findByRole('heading', { name: /Your source is ready/i });
+    await user.click(
+      screen.getByRole('button', { name: /Analyze Opportunity/i }),
+    );
+    await screen.findByRole('heading', { name: /The evidence, in context/i });
+    await user.click(screen.getByRole('button', { name: 'Verification plan' }));
+    await screen.findByRole('heading', { name: /Make the next check count/i });
+    await user.click(screen.getByRole('button', { name: 'Start action' }));
+    await user.click(
+      screen.getByRole('button', { name: /View finding F-01 in graph/i }),
+    );
+    const canvas = await screen.findByRole('group', {
+      name: 'Pannable graph canvas',
+    });
+    expect(
+      within(canvas)
+        .getByRole('button', { name: 'Risk finding: Upfront fee' })
+        .getAttribute('aria-pressed'),
+    ).toBe('true');
+    await user.click(
+      screen.getByRole('button', { name: 'Open related verification actions' }),
+    );
+    expect(
+      screen.getByLabelText('Selected verification action').textContent,
+    ).toContain('In progress');
+    await user.click(
+      screen.getByRole('button', { name: 'Investigation report' }),
+    );
+    expect(screen.getByText('44', { selector: 'strong' })).toBeTruthy();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
   it('switches a real report to the graph, traces exact reviewed source text, and makes no extra provider request', async () => {
     const user = userEvent.setup();
     const fetchMock = vi

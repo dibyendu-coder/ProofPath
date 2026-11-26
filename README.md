@@ -60,7 +60,13 @@ The warning-sign index is a deterministic heuristic, not a fraud probability. Du
 
 After a successful analysis, switch between **Investigation report** and **Evidence graph**. The graph is built in the browser from the same validated report; opening or filtering it makes no Groq request and does not change the warning-sign index. Select a node for its context, use **View in source** to highlight an exact span of reviewed text, or open the structured evidence list. Drag the canvas to pan; the toolbar provides zoom, fit, and reset controls. Filters and severity narrow the view without altering the report. The landing page graph remains a separate fictional demonstration.
 
-Graph quotations are rechecked against reviewed-text offsets. Source claims remain unverified, findings remain AI interpretations, and actions are linked to the opportunity overall because the analysis contract does not identify a reliable action-to-finding mapping. The graph cannot independently verify an organization or recover a case after leaving the page. See [architecture](docs/architecture.md) for the node model and layout limits.
+Graph quotations are rechecked against reviewed-text offsets. Source claims remain unverified and findings remain AI interpretations. Phase 6 plan actions link to specific findings only when built from those validated findings; other actions link to the opportunity overall. The graph cannot independently verify an organization or recover a case after leaving the page. See [architecture](docs/architecture.md) for the node model and layout limits.
+
+## Verification assistant
+
+After analysis, open **Verification plan** beside the report and graph. The browser builds prioritized actions from exact, rechecked finding quotations, explicitly missing details, and report recommendations. Questions and four editable message drafts use neutral templates; copying them does not send anything. You can start or complete an action, record a response or note with an optional URL as text, mark a concern unresolved, and reopen an action. The timeline records those local interactions with their actual timestamps. Graph findings and actions link to the same plan IDs, and navigation preserves progress in the current case.
+
+Progress counts user activity only. It does not change the warning-sign index or establish authenticity. Notes, drafts, and action state remain in memory in this browser view; refreshing or leaving clears them. Reference URLs are never fetched, and notes are never sent to Groq. See [architecture](docs/architecture.md) for generation and state limits.
 
 ## Intake API contract
 

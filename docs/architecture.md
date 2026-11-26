@@ -1,5 +1,13 @@
 # Architecture
 
+## Phase 6 verification assistant
+
+`client/verification/` derives a plan from the existing `AnalysisReport` and confirmed text. It first rechecks each finding's exact quotation and offsets. Valid findings are grouped by verification category, retaining their finding IDs, source span, origin, and high severity priority. Missing details and report recommendations produce separate actions where they do not overlap. A general safety action appears only when no specific action is supported. Deterministic category templates supply methods, questions, and completion criteria without inserting guessed names, amounts, addresses, or URLs. Four neutral, editable communication drafts are local text; no message is sent.
+
+The React workspace uses a reducer keyed by the analysis ID. It records not started, in progress, response recorded, user marked complete, and concern unresolved states. User-entered notes and responses have a 1,000-character limit and optional HTTP(S) reference text limited to 500 characters. Reference URLs are displayed as text, never fetched. Entries and timeline events use actual browser timestamps; the timeline retains at most 100 events and each action at most 30 notes. State, drafts, and notes exist only in component memory and are cleared by refresh, navigation away, or a new report. This is not persistence or authenticated verification.
+
+Progress is calculated from action states and is separate from the immutable Phase 4 warning-sign index. A completed action is a user's statement, not proof of authenticity. The graph reuses the plan's stable action IDs. A finding-backed action has an `ADDRESSES` edge to a validated finding; an action without such support links only to the overall opportunity with `REQUIRES_VERIFICATION`. Graph-to-plan and plan-to-finding controls navigate between mounted views, preserving local state and graph viewport. Model output and notes render only as React text. The feature makes no new API or Groq call and adds no backend processing. Its limits include no independent organization lookup, no verification of user-entered responses, and no state recovery after a refresh.
+
 ## Phase 5 evidence graph
 
 `client/graph/` converts the existing `AnalysisReport` and in-browser reviewed text into a typed graph. This is a pure client transformation; no graph endpoint, database, provider call, or new risk calculation exists. The fictional landing-page `EvidenceGraph` stays separate. The report and graph are two views over the same validated API response.
