@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="600" viewBox="0 0 1600 600" role="img" aria-labelledby="title description">
+  <title id="title">ProofPath — Before you trust an opportunity, verify it.</title>
+  <desc id="description">Dark editorial banner with a restrained evidence relationship motif.</desc>
+  <rect width="1600" height="600" fill="#101316"/>
+  <path d="M64 74H1536M64 526H1536" stroke="#303639"/>
+  <path d="M74 106L91 123L74 140L57 123Z" fill="none" stroke="#e67d70" stroke-width="3"/>
+  <text x="112" y="132" fill="#f2efe8" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" letter-spacing="-1">ProofPath<tspan fill="#e67d70">.</tspan></text>
+  <text x="64" y="255" fill="#e67d70" font-family="Courier New,monospace" font-size="15" letter-spacing="3">AN INVESTIGATION STARTS HERE</text>
+  <text x="61" y="362" fill="#f2efe8" font-family="Georgia,Times New Roman,serif" font-size="86" letter-spacing="-4">Before you trust an</text>
+  <text x="61" y="455" fill="#f2efe8" font-family="Georgia,Times New Roman,serif" font-size="86" letter-spacing="-4">opportunity, <tspan fill="#e67d70" font-style="italic">verify it.</tspan></text>
+  <text x="65" y="557" fill="#858b8a" font-family="Courier New,monospace" font-size="13" letter-spacing="2">EVIDENCE-FIRST OPPORTUNITY INVESTIGATION</text>
+  <g transform="translate(1130 85)" opacity=".9">
+    <text x="0" y="25" fill="#858b8a" font-family="Courier New,monospace" font-size="12" letter-spacing="2">CASE FILE / 001</text>
+    <path d="M60 128L205 190M205 190L330 138M205 190L313 309M60 128L58 332M58 332L313 309" fill="none" stroke="#586062" stroke-width="2"/>
+    <path d="M205 190L313 309" stroke="#e67d70" stroke-width="3"/>
+    <circle cx="60" cy="128" r="13" fill="#e8e3d7"/>
+    <circle cx="205" cy="190" r="12" fill="#e8e3d7"/>
+    <circle cx="330" cy="138" r="11" fill="#e8e3d7"/>
+    <circle cx="58" cy="332" r="11" fill="#e8e3d7"/>
+    <path d="M313 294L328 309L313 324L298 309Z" fill="#e67d70"/>
+    <text x="32" y="102" fill="#bcbab5" font-family="Courier New,monospace" font-size="12">SOURCE</text>
+    <text x="191" y="166" fill="#bcbab5" font-family="Courier New,monospace" font-size="12">CLAIM</text>
+    <text x="297" y="356" fill="#e67d70" font-family="Courier New,monospace" font-size="12">SIGNAL</text>
+  </g>
+</svg>

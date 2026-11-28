@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title description">
+  <title id="title">ProofPath — Before you trust an opportunity, verify it.</title>
+  <desc id="description">Social preview in ProofPath's dark editorial visual identity.</desc>
+  <rect width="1280" height="640" fill="#101316"/>
+  <path d="M60 62H1220M60 574H1220" stroke="#303639"/>
+  <path d="M77 101L94 118L77 135L60 118Z" fill="none" stroke="#e67d70" stroke-width="3"/>
+  <text x="115" y="127" fill="#f2efe8" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" letter-spacing="-1">ProofPath<tspan fill="#e67d70">.</tspan></text>
+  <text x="62" y="244" fill="#e67d70" font-family="Courier New,monospace" font-size="16" letter-spacing="3">EVIDENCE-FIRST OPPORTUNITY INVESTIGATION</text>
+  <text x="59" y="350" fill="#f2efe8" font-family="Georgia,Times New Roman,serif" font-size="76" letter-spacing="-3">Before you trust an</text>
+  <text x="59" y="437" fill="#f2efe8" font-family="Georgia,Times New Roman,serif" font-size="76" letter-spacing="-3">opportunity,</text>
+  <text x="59" y="524" fill="#e67d70" font-family="Georgia,Times New Roman,serif" font-size="76" font-style="italic" letter-spacing="-3">verify it.</text>
+  <g transform="translate(935 207)">
+    <path d="M35 50L145 118L265 42M145 118L270 259M35 50L31 264M31 264L270 259" fill="none" stroke="#586062" stroke-width="2"/>
+    <path d="M145 118L270 259" stroke="#e67d70" stroke-width="3"/>
+    <circle cx="35" cy="50" r="11" fill="#e8e3d7"/>
+    <circle cx="145" cy="118" r="11" fill="#e8e3d7"/>
+    <circle cx="265" cy="42" r="10" fill="#e8e3d7"/>
+    <circle cx="31" cy="264" r="10" fill="#e8e3d7"/>
+    <path d="M270 245L284 259L270 273L256 259Z" fill="#e67d70"/>
+  </g>
+</svg>

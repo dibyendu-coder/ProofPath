@@ -1,91 +1,212 @@
+![ProofPath — Before you trust an opportunity, verify it.](docs/assets/banner.webp)
+
 # ProofPath
 
-**Before you trust an opportunity, verify it.**
+**Before you trust an opportunity, verify it.** ProofPath helps students and job seekers examine an internship, job, scholarship, or recruitment message before acting on it. It turns reviewed source material into an evidence-linked warning-sign report, an interactive relationship graph, and a practical verification plan.
 
-ProofPath is an opportunity verification product for students and job seekers. The `/verify` workspace accepts text, URLs, screenshots, and text-based PDFs, then lets users review extracted text before requesting AI analysis. Reports identify text-supported warning signs; they do not independently verify organizations or store submissions.
+<kbd>React</kbd> <kbd>TypeScript</kbd> <kbd>Vite</kbd> <kbd>Node.js</kbd> <kbd>Groq</kbd> <kbd>Vitest</kbd> · **149 tests passing locally**
 
-## Requirements and development
+[Product walkthrough](#product-showcase) · [How it works](#how-it-works) · [Architecture](#system-architecture) · [Run locally](#getting-started) · [Limitations](#important-limitations)
 
-- Node.js 20.19+ (Node 22 recommended)
-- npm 10+
+> **Fictional demonstration:** The screenshots below use one invented Nexora Technologies internship message. One report was generated through the live Groq integration; subsequent browser views reused that saved result for the same source. Its **39 / 100 · Caution advised** index and three supported findings are the application's actual output for that run, not an edited score or a claim about a real employer.
+
+## The problem
+
+An opportunity can arrive as a message, webpage, screenshot, or PDF. A student may need to decide quickly whether a payment request, short deadline, or unusual contact channel deserves closer scrutiny. Finding the exact wording behind a warning sign—and knowing what to check next—is harder than reading a single verdict.
+
+## Meet ProofPath
+
+ProofPath is an **evidence-first opportunity investigation** workspace. Submit a source, inspect what was extracted, correct it if needed, and explicitly request analysis. The resulting report ties each retained warning sign to an exact quotation from the reviewed text. From there, follow relationships in the evidence graph, work through independent checks, and export a privacy-configured report.
+
+It identifies warning signs in supplied material. It does **not** verify an organization's identity or establish that an opportunity is fraudulent or legitimate.
+
+## Product showcase
+
+### 01 — Investigate any opportunity
+
+Start with pasted text, a public URL, a screenshot, or a text-based PDF. Each method has its own preparation and limits.
+
+![The actual ProofPath intake screen showing text, URL, screenshot, and PDF options](docs/assets/screenshots/02-intake.webp)
+
+### 02 — Review the original evidence
+
+The source receipt records how text was supplied or extracted. Review it before analysis; screenshot OCR can be corrected in the editable review field. The demonstration uses user-supplied text, so it has no OCR warning.
+
+![Source receipt and the fictional internship message](docs/assets/screenshots/03-source-review.webp)
+
+### 03 — Understand the warning signs
+
+The live investigation returned three supported findings. The report shows its heuristic index, limitations, and exact source quotations; findings are interpretations of the text, not independently verified facts.
+
+![Live AI investigation report for the fictional internship](docs/assets/screenshots/04-investigation.webp)
+
+### 04 — Follow the evidence
+
+The graph is built in the browser from the validated report. Select a finding to inspect its quotation, source offsets, uncertainty, and linked checks. Lines describe report relationships, not proof of authenticity.
+
+![Interactive evidence graph with findings and source evidence](docs/assets/screenshots/05-evidence-graph.webp)
+
+![Selected warning sign in the evidence inspector](docs/assets/screenshots/06-evidence-inspector.webp)
+
+<details>
+<summary>See the inspector's source and verification links</summary>
+
+![The inspector's related verification action and source tracing controls](docs/assets/screenshots/06b-inspector-actions.webp)
+
+</details>
+
+### 05 — Take informed action
+
+The verification assistant prioritizes checks, links supported findings to actions, suggests neutral questions, and tracks only the user's local progress. Drafts can be edited and copied; ProofPath sends no message on the user's behalf.
+
+![Verification plan with priorities and progress](docs/assets/screenshots/07-verification.webp)
+
+<details>
+<summary>See an evidence-linked question and local note field</summary>
+
+![Suggested verification question linked to a source quotation](docs/assets/screenshots/07b-verification-questions.webp)
+
+</details>
+
+### 06 — Share the investigation
+
+Choose what appears in a report, review the preview, then download PDF or JSON. Full source text, contacts, URLs, notes, and timeline are excluded by default. This is a local file export, not public report hosting.
+
+![Privacy options and preview in the report export dialog](docs/assets/screenshots/08-export.webp)
+
+The page below was rendered from the **actual downloaded PDF**, with selectable text and the original ₹1,499 quotation.
+
+![Rendered first page of the generated investigation PDF](docs/assets/screenshots/09-pdf-report.webp)
+
+### 07 — Investigate from anywhere
+
+The same report remains readable in the mobile workspace.
+
+<img src="docs/assets/screenshots/10-mobile.webp" width="390" alt="Mobile investigation report with the same fictional case's Caution advised classification" />
+
+The landing page introduces the product through a separate, clearly fictional offer demonstration.
+
+![ProofPath editorial landing page](docs/assets/screenshots/01-landing.webp)
+
+## What makes ProofPath different
+
+| Capability                         | Why it matters                                                                                               |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Exact quotation validation         | Findings without a matching span in the reviewed source are discarded before the report is returned.         |
+| Evidence-linked findings           | A reader can move from an interpretation to its quotation and reviewed-text location.                        |
+| Deterministic warning-sign index   | Code applies documented category weights to retained findings; the model does not choose the number.         |
+| Interactive evidence relationships | The client builds inspectable nodes and edges from the validated report, with a keyboard-accessible list.    |
+| Actionable verification plan       | Checks, questions, and editable drafts help users confirm claims through channels they locate independently. |
+| User-reviewed extraction           | URL, screenshot, and PDF text is shown before analysis; OCR errors can be corrected.                         |
+| Privacy-conscious exports          | One validated snapshot drives PDF and JSON, with optional sections and best-effort redaction.                |
+| Report fingerprint                 | An optional SHA-256 digest helps compare a payload with a trusted original. It is not a digital signature.   |
+
+## How it works
+
+**Submit opportunity → extract or receive source text → review and confirm text → Groq analysis → validate supporting quotations → calculate the warning-sign index → build evidence graph and verification plan → export a report.**
+
+The backend sends only the text the user explicitly confirms to Groq. It validates structured output and quotation spans before returning a report. The graph, plan, and exports are then created in the browser without more AI calls.
+
+## System architecture
+
+```mermaid
+flowchart LR
+  subgraph Browser["Browser · React and Vite"]
+    UI["Intake and source review"]
+    Report["Investigation report"]
+    Graph["Evidence graph"]
+    Plan["Verification assistant"]
+    Export["PDF and JSON exports"]
+  end
+  subgraph Server["Node.js HTTP server"]
+    Intake["POST /api/intake"]
+    Text["Text normalization"]
+    URL["Guarded URL retrieval"]
+    OCR["Isolated OCR worker"]
+    PDF["Isolated PDF extraction worker"]
+    Analyze["POST /api/analyze"]
+    Schema["Structured output validation"]
+    Evidence["Exact quotation validation"]
+    Risk["Deterministic risk scoring"]
+  end
+  Groq["Groq API"]
+  UI --> Intake
+  Intake --> Text
+  Intake --> URL
+  Intake --> OCR
+  Intake --> PDF
+  Text --> UI
+  URL --> UI
+  OCR --> UI
+  PDF --> UI
+  UI -->|Confirmed reviewed text| Analyze
+  Analyze --> Groq
+  Groq --> Schema
+  Schema --> Evidence
+  Evidence --> Risk
+  Risk --> Report
+  Report --> Graph
+  Report --> Plan
+  Report --> Export
+```
+
+There is no database, account system, public report service, or automatic outbound message. See [architecture](docs/architecture.md) for contracts, limits, and threat boundaries.
+
+## Tech stack
+
+| Layer             | In use                                                                                   |
+| ----------------- | ---------------------------------------------------------------------------------------- |
+| Frontend          | React 19, strict TypeScript, Vite 8, Tailwind CSS 4, native SVG                          |
+| Backend           | Node.js HTTP server, Zod validation                                                      |
+| AI                | Groq chat completions with structured output; `openai/gpt-oss-120b` is the default model |
+| Source processing | Guarded Node HTTP(S) retrieval, Sharp, Tesseract.js, PDF.js                              |
+| Reports           | Client-side `pdf-lib`, `@pdf-lib/fontkit`, bundled Noto Sans, Web Crypto SHA-256         |
+| Quality           | Vitest, Testing Library, ESLint, Prettier                                                |
+
+## Getting started
+
+### Prerequisites
+
+Node.js **20.19+** and npm **10+**. Node 22 is recommended. A Groq API key is required for AI analysis; intake and source review can run without one.
 
 ```bash
+git clone https://github.com/dibyendu-coder/ProofPath.git
+cd ProofPath
 npm install
+cp .env.example .env
+```
+
+On Windows PowerShell, use `Copy-Item .env.example .env` and `npm.cmd` if script execution blocks `npm.ps1`. Create an API key in the Groq Console, then put it in the **root, Git-ignored `.env` file**:
+
+```dotenv
+GROQ_API_KEY=<your-key>
+GROQ_MODEL=openai/gpt-oss-120b
+```
+
+Never put the key in `.env.example`, client code, or a `VITE_` variable. Deployed environment variables take precedence over `.env`. Restart the backend after changing either.
+
+Start the backend and frontend in separate terminals:
+
+```bash
 npm run dev:api
+# in another terminal
+npm run dev
 ```
 
-In another terminal run `npm run dev`, then open `http://localhost:5173/verify`. Vite proxies `/api` to the Node server at `http://localhost:3000`. Stop any older server already using port 3000 before starting `dev:api`; an older build can answer intake requests with an empty 405 response. `dev:api` compiles the bounded PDF and OCR workers before starting the server. Restart `dev:api` after editing either worker **or `.env`**: environment variables are loaded when the backend process starts. On Windows PowerShell setups that block `npm.ps1`, use `npm.cmd`.
+Open the local URL printed by Vite (normally port 5173), then visit `/verify` for the workspace. Vite proxies `/api` to the Node server on port 3000. `dev:api` compiles the OCR and PDF workers before starting. If port 3000 is occupied, stop the older process first.
 
-## Source limits
+For a local production build:
 
-| Source     | Accepted input                              | Limit                                        | Preparation                                                                         |
-| ---------- | ------------------------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Text       | Opportunity message or description          | 20,000 characters                            | Returned as submitted                                                               |
-| URL        | HTTP or HTTPS, without embedded credentials | 2,048 normalized characters                  | Public webpage text retrieved when safe; otherwise recorded with unavailable status |
-| Screenshot | PNG, JPEG, WebP                             | 5 MB, 12 megapixels                          | Full image decode and local English OCR in an isolated worker                       |
-| PDF        | Text-based PDF                              | 10 MB, 15 pages, 20,000 extracted characters | Selectable text extracted in a bounded child process                                |
-
-Blank, malformed, encrypted, and scanned image-only PDFs produce clear errors. Mixed text/scanned PDFs report partial extraction and affected pages. PDF text is never silently truncated. Submissions are processed in memory and returned to the browser; no database or permanent file storage is used. A case identifier identifies the response, but it cannot be retrieved after leaving the page.
-
-URL retrieval accepts only conventional public hostnames and ports 80/443, resolves and checks every DNS address, pins the connection to a checked address, and repeats validation after redirects. It uses GET without credentials or cookies, executes no page JavaScript, and caps time, headers, compressed bytes, and decompressed bytes. A blocked destination returns a 422 error; a network, content, or size failure returns an honest unavailable receipt. Retrieved content is **not** verified evidence. HTML text extraction is best effort and may omit unusual page layouts.
-
-Screenshot OCR uses Tesseract.js 7 with a bundled English model and Sharp image decoding. It does not contact a CDN or persist image data. OCR is approximate: the controlled rupee-sign screenshot preserves the numeric amount but omits the `₹` symbol, and other fonts may produce a wrong leading digit. Always compare amounts, deadlines, and contact details with the original. Corrupt, oversized, blank, timed-out, or failed images return structured errors rather than invented text. See [architecture](docs/architecture.md) for resource limits and measured memory.
-
-Embarko publishes a 256 MB per-app memory limit. OCR and PDF jobs are serialized, and the OCR child downsizes large images, but local RSS samples do not prove worst-case deployment fit. Test the target deployment with a representative screenshot and inspect peak container memory before relying on OCR availability.
-
-Public URL retrieval requires outbound DNS and HTTPS from the server. If the hosting environment blocks it, the receipt reports `unavailable`. To verify a deployment, submit `https://example.com/` through `/api/intake` and confirm `processingStatus: "extracted"`, `pageTitle: "Example Domain"`, a final URL, and a retrieval timestamp. Keep the SSRF protections and TLS certificate verification enabled.
-
-## Groq analysis
-
-Set `GROQ_API_KEY` as a server-side environment variable or in an ignored local `.env` file and optionally set `GROQ_MODEL` (default `openai/gpt-oss-120b`). The Node entry point loads `.env` when present; deployed environment variables take precedence. Keep `.env.example` as a placeholder template and never put credentials in `VITE_` variables. The default model is listed by [Groq as supporting strict structured outputs](https://console.groq.com/docs/structured-outputs). The server sends only text the user reviewed and explicitly confirmed; uploaded file bytes are not sent. If the text is unchanged, the confirmed text is the original extraction. A missing key returns `503 not_configured`, and provider failures return safe JSON without fabricated reports.
-
-`POST /api/analyze` accepts JSON:
-
-```json
-{
-  "caseId": "uuid-from-intake",
-  "sourceType": "text",
-  "extractionMethod": "user_supplied",
-  "reviewedText": "At least 20 characters of confirmed opportunity text",
-  "userCorrected": false,
-  "confirmed": true
-}
+```bash
+npm run build
+npm start
 ```
 
-Success returns HTTP 200 with `status: "complete"`, analysis and case identifiers, timestamp, model, opportunity type, summary, source claims, supported findings with exact quotes and offsets, unanswered questions, verification actions, limitations, and `{score,classification,explanation}`. Errors return `{status:"failed",code,message}`. Case ID and extraction metadata are client-provided references, not authenticated provenance. No database or case lookup exists.
+`npm start` serves the built site and API from one process on `PORT` (default 3000). `GET /api/health` checks the API. Target-host compatibility is **not yet verified**.
 
-The warning-sign index is a deterministic heuristic, not a fraud probability. Duplicate or unsupported findings contribute zero, uncertainty reduces weight, and insufficient evidence produces **Inconclusive**. The server expands narrow quotes to exact source sentences, applies conservative category checks, and builds report prose from retained evidence; these checks do not prove that every interpretation is correct. See [architecture](docs/architecture.md) for weights and thresholds. OCR can misread payment amounts, including currency symbols and digits; check them against the original image before analysis.
+## Engineering quality
 
-## Evidence graph
-
-After a successful analysis, switch between **Investigation report** and **Evidence graph**. The graph is built in the browser from the same validated report; opening or filtering it makes no Groq request and does not change the warning-sign index. Select a node for its context, use **View in source** to highlight an exact span of reviewed text, or open the structured evidence list. Drag the canvas to pan; the toolbar provides zoom, fit, and reset controls. Filters and severity narrow the view without altering the report. The landing page graph remains a separate fictional demonstration.
-
-Graph quotations are rechecked against reviewed-text offsets. Source claims remain unverified and findings remain AI interpretations. Phase 6 plan actions link to specific findings only when built from those validated findings; other actions link to the opportunity overall. The graph cannot independently verify an organization or recover a case after leaving the page. See [architecture](docs/architecture.md) for the node model and layout limits.
-
-## Verification assistant
-
-After analysis, open **Verification plan** beside the report and graph. The browser builds prioritized actions from exact, rechecked finding quotations, explicitly missing details, and report recommendations. Questions and four editable message drafts use neutral templates; copying them does not send anything. You can start or complete an action, record a response or note with an optional URL as text, mark a concern unresolved, and reopen an action. The timeline records those local interactions with their actual timestamps. Graph findings and actions link to the same plan IDs, and navigation preserves progress in the current case.
-
-Progress counts user activity only. It does not change the warning-sign index or establish authenticity. Notes, drafts, and action state remain in memory in this browser view; refreshing or leaving clears them. Reference URLs are never fetched, and notes are never sent to Groq. See [architecture](docs/architecture.md) for generation and state limits.
-
-## Shareable investigation reports
-
-After an analysis, use **Export report** to choose privacy settings, generate a preview, and download PDF or JSON files. Both downloads use the same validated, frozen in-browser snapshot. The default excludes the full reviewed source, contact details, source and reference URLs, private notes, and the local timeline. Evidence quotations and an evidence relationship map are included by default; turn either off in the dialog. You can enter up to 20 additional phrases to redact before previewing. Redacted quotations are marked, and offsets are omitted when they no longer match the exported text. Review each downloaded file before sharing: pattern-based redaction cannot catch every personal detail.
-
-PDF export uses a lazy-loaded client-side renderer with a bundled Noto Sans font for selectable Unicode text, including `₹`. The document uses A4 pages, page numbers, an evidence register, a compact relationship diagram plus structured graph connections, verification actions, limitations, and a disclaimer. JSON follows schema `1.0.0`. A SHA-256 fingerprint is computed from the canonical, redacted JSON payload with the fingerprint field excluded, then appears in both files when selected. A fingerprint can reveal a changed payload when compared with a trusted original; it is not a signature or proof of authenticity. No report is uploaded or hosted, and export makes no new Groq request. See [architecture](docs/architecture.md) for the schema, resource limits, and known browser and font limitations.
-
-## Intake API contract
-
-`POST /api/intake` accepts JSON for text and URLs:
-
-```json
-{"sourceType":"text","text":"Opportunity message"}
-{"sourceType":"url","url":"https://example.org/jobs"}
-```
-
-Images and PDFs use a raw `application/octet-stream` body with `X-Source-Type: image` or `pdf` and a URI-encoded `X-File-Name`. A successful response has HTTP 201 and the Phase 2 fields `{status:"prepared",caseId,sourceType,submittedAt,metadata,warnings,extractedText?}` plus `processingStatus`, `extractionMethod`, `provenance`, and `errors`. Statuses distinguish supplied, extracted, partial, and unavailable content. Errors use `{status:"failed",code,message}` and an appropriate HTTP status. See [architecture](docs/architecture.md) for security details.
-
-## Checks and production run
+The current local suite passes **149 tests across 21 files**. Run the same checks with:
 
 ```bash
 npm run typecheck
@@ -93,7 +214,50 @@ npm run lint
 npm run format:check
 npm test
 npm run build
-npm start
 ```
 
-`npm start` serves the built site and API from one Node process on `PORT` (default `3000`). Build before starting. Intake works without an API key; analysis reports a configuration error until `GROQ_API_KEY` is provided. See [design system](docs/design-system.md) and [roadmap](docs/roadmap.md).
+Strict TypeScript, Zod contracts, exact quotation checks, bounded source processing, worker isolation, safe JSON errors, and lazy graph, plan, and PDF code keep the implementation reviewable. Tests cover API behavior, source processing, analysis validation, graph and plan behavior, report exports, and UI state. A passing local suite does not establish deployment readiness.
+
+## Privacy and security
+
+- The Groq key stays on the server. Uploaded file bytes are processed by the intake service; only confirmed reviewed text is sent for AI analysis.
+- URL retrieval checks destinations and redirects, pins validated DNS addresses, and limits response size and time. Public network access depends on the host.
+- Images and PDFs are signature-checked and processed with size, page, pixel, and time limits; OCR and PDF parsing run in bounded child processes.
+- OCR is a transcription aid. Users inspect and can edit extracted text before analysis.
+- Case, notes, action history, and report state remain in the browser view. Refreshing or leaving clears them; there is no case lookup or account storage.
+- PDF and JSON generation happens in the browser. Redaction is optional and pattern-based, so the final file needs human review. No report is uploaded or publicly hosted.
+
+See [architecture](docs/architecture.md) for specific limits and remaining security work.
+
+## Project structure
+
+```text
+client/              React pages, source review, report, graph, verification, export
+server/              HTTP API, intake, analysis, source processing, workers
+shared/              Transport contracts
+docs/                Architecture, design system, roadmap, showcase assets
+scripts/             Local report-generation and PDF-audit helpers
+```
+
+## Roadmap
+
+| Work                                   | Status           |
+| -------------------------------------- | ---------------- |
+| Foundation and editorial landing page  | Complete locally |
+| Universal intake and source processing | Complete locally |
+| Evidence-linked AI investigation       | Complete locally |
+| Interactive evidence graph             | Complete locally |
+| Intelligent verification assistant     | Complete locally |
+| Privacy-configured report exports      | Complete locally |
+| Production hardening and deployment    | Upcoming         |
+| Final competition polish               | Upcoming         |
+
+Details and phase numbers are in the [roadmap](docs/roadmap.md).
+
+## Important limitations
+
+ProofPath highlights warning signs; it does not prove fraud or legitimacy. AI analysis can miss or misinterpret a signal even when retained quotations are exact. Its index is **not a calibrated fraud probability**. OCR can misread text, including currency symbols and digits; scanned image-only PDFs are not extracted. Verification progress records user activity, not authenticity. A report fingerprint is **not** a digital signature. Target-host memory, outbound retrieval, and deployment behavior still need testing.
+
+## License and author
+
+Maintained by [dibyendu-coder](https://github.com/dibyendu-coder). **No license file has been selected or added.** Reuse rights are not granted by this repository until the maintainer chooses a license.
