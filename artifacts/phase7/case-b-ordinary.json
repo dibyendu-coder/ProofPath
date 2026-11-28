@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "22222222-2222-4222-8222-222222222222",
+  "caseId": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+  "analysisId": "22222222-2222-4222-8222-222222222222",
+  "analyzedAt": "2026-11-25T00:00:00.000Z",
+  "exportedAt": "2026-11-28T12:00:00.000Z",
+  "sourceType": "text",
+  "extractionMethod": "user_supplied",
+  "sourceUrl": null,
+  "reviewedSource": null,
+  "summary": "A detailed ordinary internship description with a standard application process.",
+  "risk": {
+    "score": 8,
+    "classification": "Low risk",
+    "explanation": "Few warning signs were identified in the reviewed text."
+  },
+  "findings": [],
+  "evidence": [],
+  "missingInformation": [
+    "Employer identity"
+  ],
+  "uncertaintyIndicators": [
+    "Recruiter identity is unconfirmed"
+  ],
+  "recommendedActions": [
+    "Confirm the role on the official careers page."
+  ],
+  "limitations": [
+    "No independent organization verification."
+  ],
+  "ocrWarnings": [],
+  "model": "openai/gpt-oss-20b",
+  "verification": {
+    "total": 1,
+    "started": 0,
+    "completed": 0,
+    "remaining": 1,
+    "unresolvedHigh": 0,
+    "actions": [
+      {
+        "id": "verify:22222222-2222-4222-8222-222222222222:company_identity",
+        "title": "Check the organization identity",
+        "priority": "standard",
+        "status": "not_started",
+        "basis": "missing_detail",
+        "method": "Use a known official website or published contact channel, not a link supplied only in the message.",
+        "completionCriteria": "Record the independently found listing or contact response and any differences.",
+        "findingIds": []
+      }
+    ]
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "opportunity:22222222-2222-4222-8222-222222222222",
+        "type": "OPPORTUNITY",
+        "title": "Opportunity under review",
+        "description": "A detailed ordinary internship description with a standard application process.",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "uncertainty:Missing%20information%3Aemployer%20identity",
+        "type": "UNCERTAINTY",
+        "title": "Missing information",
+        "description": "Employer identity",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "type": "UNCERTAINTY",
+        "title": "Uncertainty indicator",
+        "description": "Recruiter identity is unconfirmed",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "verify:22222222-2222-4222-8222-222222222222:company_identity",
+        "type": "VERIFICATION_ACTION",
+        "title": "Check the organization identity",
+        "description": "Missing detail identified in the report: Employer identity. Find the organization and role through sources you locate independently.",
+        "origin": "missing_detail",
+        "quotation": null
+      }
+    ],
+    "edges": [
+      {
+        "from": "uncertainty:Missing%20information%3Aemployer%20identity",
+        "to": "opportunity:22222222-2222-4222-8222-222222222222",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "to": "opportunity:22222222-2222-4222-8222-222222222222",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "opportunity:22222222-2222-4222-8222-222222222222",
+        "to": "verify:22222222-2222-4222-8222-222222222222:company_identity",
+        "type": "REQUIRES_VERIFICATION"
+      }
+    ]
+  },
+  "options": {
+    "includeSource": false,
+    "includeQuotations": true,
+    "includeContacts": false,
+    "includeSourceUrls": false,
+    "includeNotes": false,
+    "includeTimeline": false,
+    "includeGraph": true,
+    "fingerprint": true,
+    "customRedactionCount": 0
+  },
+  "disclaimer": "Warning signs are not proof of fraud. Checklist completion does not establish legitimacy. The warning-sign index is a heuristic, not a calibrated fraud probability. Independently verify important details.",
+  "fingerprint": "08b7429af6bedca5247930e5663eb298c36bfc48c8207bcaa1d7aa83652df427"
+}

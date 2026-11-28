@@ -13,7 +13,7 @@ Phases 0, 1, and 1.1 established the project, editorial landing page, fictional 
 | 4     | Evidence-backed AI risk assessment                      | Implemented locally; live Groq analysis passed; deployment pending          |
 | 5     | Product evidence graph beyond the landing demonstration | Verified locally, including desktop and mobile Chromium; deployment pending |
 | 6     | Intelligent verification assistant                      | Implemented locally; deployment pending                                     |
-| 7     | Shareable reports                                       | Planned                                                                     |
+| 7     | Shareable investigation reports                         | Implemented locally; target-host deployment pending                         |
 | 8     | Security hardening, testing, deployment                 | Planned                                                                     |
 | 9     | Demo preparation and final polish                       | Planned                                                                     |
 
@@ -22,3 +22,5 @@ OCR is English-first and may misread currency symbols or small text. Scanned-PDF
 Phase 5 builds a typed graph from the validated report, with exact source tracing, node inspection, filters, and an accessible text list. It does not independently verify claims or associate actions with individual findings without report support. Phase 5.1 checked the built app at desktop, laptop, tablet, and mobile widths in local Chromium, including touch panning and no horizontal page overflow. Target deployment performance remains unverified.
 
 Phase 6 adds a deterministic, in-browser verification plan, neutral questions and editable drafts, local notes and action history, progress counts, and links between validated findings and plan actions in the graph. It adds no provider request, messaging service, persistence, or change to the original risk assessment. Checklist completion never proves an opportunity is safe.
+
+Phase 7 adds client-side, privacy-configured PDF and JSON downloads from one validated report snapshot. It has no authentication, database, public report URL, automatic upload, or new AI request. The export was tested locally with fictional suspicious, ordinary, and ambiguous cases and a long evidence case; deployment remains unverified. Phases 8 and 9 remain planned.

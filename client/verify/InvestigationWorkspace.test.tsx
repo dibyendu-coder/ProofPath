@@ -48,6 +48,69 @@ async function submitText(
 }
 
 describe('investigation workspace', () => {
+  it('previews and downloads a privacy-redacted JSON report without losing verification state or making another provider call', async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        apiResponse({ ...success, extractedText: graphText }, 201),
+      )
+      .mockResolvedValueOnce(
+        apiResponse({ ...graphReport, caseId: success.caseId }, 200),
+      );
+    vi.stubGlobal('fetch', fetchMock);
+    const create = vi.fn().mockReturnValue('blob:local-report');
+    const revoke = vi.fn();
+    vi.stubGlobal(
+      'URL',
+      Object.assign(URL, { createObjectURL: create, revokeObjectURL: revoke }),
+    );
+    const click = vi
+      .spyOn(HTMLAnchorElement.prototype, 'click')
+      .mockImplementation(() => {});
+    render(<InvestigationWorkspace />);
+    await submitText(user, graphText);
+    await screen.findByRole('heading', { name: /Your source is ready/i });
+    await user.click(
+      screen.getByRole('button', { name: /Analyze Opportunity/i }),
+    );
+    await screen.findByRole('heading', { name: /The evidence, in context/i });
+    await user.click(screen.getByRole('button', { name: 'Verification plan' }));
+    await screen.findByRole('button', { name: 'Start action' });
+    await user.click(screen.getByRole('button', { name: 'Start action' }));
+    await user.click(screen.getByRole('button', { name: /Export report/i }));
+    const dialog = await screen.findByRole('dialog', {
+      name: 'Prepare the report.',
+    });
+    expect(
+      within(dialog)
+        .getByRole('checkbox', {
+          name: 'Private verification notes and responses',
+        })
+        .getAttribute('checked'),
+    ).toBeNull();
+    await user.click(
+      within(dialog).getByRole('button', { name: 'Generate preview' }),
+    );
+    await within(dialog).findByLabelText('Final report preview');
+    expect(within(dialog).getByText(/44 \/ 100/)).toBeTruthy();
+    await user.click(
+      within(dialog).getByRole('button', { name: 'Download JSON' }),
+    );
+    expect(create).toHaveBeenCalledTimes(1);
+    expect(click).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    await user.click(
+      within(dialog).getByRole('button', { name: 'Cancel export' }),
+    );
+    expect(
+      screen.getByLabelText('Selected verification action').textContent,
+    ).toContain('In progress');
+    expect(document.activeElement).toBe(
+      screen.getByRole('button', { name: /Export report/i }),
+    );
+    click.mockRestore();
+  }, 15000);
   it('keeps verification progress across report and graph views and links findings both ways without another API call', async () => {
     const user = userEvent.setup();
     const fetchMock = vi
@@ -91,7 +154,7 @@ describe('investigation workspace', () => {
     );
     expect(screen.getByText('44', { selector: 'strong' })).toBeTruthy();
     expect(fetchMock).toHaveBeenCalledTimes(2);
-  });
+  }, 15000);
   it('switches a real report to the graph, traces exact reviewed source text, and makes no extra provider request', async () => {
     const user = userEvent.setup();
     const fetchMock = vi

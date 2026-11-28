@@ -9,6 +9,7 @@ import type {
   EvidenceNote,
   VerificationAction,
   VerificationPlan,
+  VerificationState,
 } from './types';
 import './verification.css';
 
@@ -35,6 +36,7 @@ export function VerificationWorkspace({
   focusActionId,
   focusRequest,
   onViewFinding,
+  onStateChange,
 }: {
   plan: VerificationPlan;
   active: boolean;
@@ -42,10 +44,12 @@ export function VerificationWorkspace({
   focusActionId?: string;
   focusRequest: number;
   onViewFinding: (id: string) => void;
+  onStateChange?: (state: VerificationState) => void;
 }) {
   const [state, dispatch] = useReducer(verificationReducer, plan, (value) =>
     initializeVerification(value, new Date().toISOString()),
   );
+  useEffect(() => onStateChange?.(state), [state, onStateChange]);
   const [selectedId, setSelectedId] = useState(plan.actions[0]?.id ?? null);
   const [noteKind, setNoteKind] = useState<'note' | 'response'>('note');
   const [noteText, setNoteText] = useState('');

@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "44444444-4444-4444-8444-444444444444",
+  "caseId": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+  "analysisId": "44444444-4444-4444-8444-444444444444",
+  "analyzedAt": "2026-11-25T00:00:00.000Z",
+  "exportedAt": "2026-11-28T12:00:00.000Z",
+  "sourceType": "text",
+  "extractionMethod": "user_supplied",
+  "sourceUrl": null,
+  "reviewedSource": null,
+  "summary": "A deliberately long fictional quotation tests document pagination.",
+  "risk": {
+    "score": 60,
+    "classification": "Elevated risk",
+    "explanation": "A heuristic warning-sign index based on retained text-supported findings."
+  },
+  "findings": [
+    {
+      "id": "F-01",
+      "title": "Upfront fee",
+      "severity": "high",
+      "category": "payment",
+      "explanation": "The source requests payment.",
+      "uncertainty": "low",
+      "quotation": "Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place.",
+      "quotationRedacted": false,
+      "evidenceId": "E-F-01",
+      "origin": "user_supplied",
+      "start": null,
+      "end": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E-F-01",
+      "findingIds": [
+        "F-01"
+      ],
+      "quotation": "Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place.",
+      "quotationRedacted": false,
+      "origin": "user_supplied",
+      "start": null,
+      "end": null
+    }
+  ],
+  "missingInformation": [],
+  "uncertaintyIndicators": [
+    "Recruiter identity is unconfirmed"
+  ],
+  "recommendedActions": [],
+  "limitations": [
+    "No independent verification."
+  ],
+  "ocrWarnings": [],
+  "model": "openai/gpt-oss-20b",
+  "verification": {
+    "total": 1,
+    "started": 0,
+    "completed": 0,
+    "remaining": 1,
+    "unresolvedHigh": 0,
+    "actions": [
+      {
+        "id": "verify:44444444-4444-4444-8444-444444444444:payment",
+        "title": "Clarify the payment policy",
+        "priority": "high",
+        "status": "not_started",
+        "basis": "finding",
+        "method": "Find the organization’s published contact details independently and ask for its written recruitment fee policy.",
+        "completionCriteria": "Record the policy response and compare it with an independently published policy. A reply alone is not proof.",
+        "findingIds": [
+          "F-01"
+        ]
+      }
+    ]
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "opportunity:44444444-4444-4444-8444-444444444444",
+        "type": "OPPORTUNITY",
+        "title": "Opportunity under review",
+        "description": "A deliberately long fictional quotation tests document pagination.",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "evidence:18:4177:user_supplied",
+        "type": "EVIDENCE",
+        "title": "Source quotation",
+        "description": "Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place.",
+        "origin": "user_supplied",
+        "quotation": "Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place."
+      },
+      {
+        "id": "finding:F-01",
+        "type": "RISK_FINDING",
+        "title": "Upfront fee",
+        "description": "The source requests payment.",
+        "origin": "user_supplied",
+        "quotation": "Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place. Pay ₹1,499 within 30 minutes to confirm your place."
+      },
+      {
+        "id": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "type": "UNCERTAINTY",
+        "title": "Uncertainty indicator",
+        "description": "Recruiter identity is unconfirmed",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "verify:44444444-4444-4444-8444-444444444444:payment",
+        "type": "VERIFICATION_ACTION",
+        "title": "Clarify the payment policy",
+        "description": "Check the requested fee through an independently found organization channel before paying anything.",
+        "origin": "finding",
+        "quotation": null
+      }
+    ],
+    "edges": [
+      {
+        "from": "finding:F-01",
+        "to": "opportunity:44444444-4444-4444-8444-444444444444",
+        "type": "INDICATES"
+      },
+      {
+        "from": "evidence:18:4177:user_supplied",
+        "to": "finding:F-01",
+        "type": "SUPPORTS"
+      },
+      {
+        "from": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "to": "opportunity:44444444-4444-4444-8444-444444444444",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "verify:44444444-4444-4444-8444-444444444444:payment",
+        "to": "finding:F-01",
+        "type": "ADDRESSES"
+      }
+    ]
+  },
+  "options": {
+    "includeSource": false,
+    "includeQuotations": true,
+    "includeContacts": false,
+    "includeSourceUrls": false,
+    "includeNotes": false,
+    "includeTimeline": false,
+    "includeGraph": true,
+    "fingerprint": true,
+    "customRedactionCount": 0
+  },
+  "disclaimer": "Warning signs are not proof of fraud. Checklist completion does not establish legitimacy. The warning-sign index is a heuristic, not a calibrated fraud probability. Independently verify important details.",
+  "fingerprint": "87270ec3bb778f5b8f3600d2b662d1706ec385770ae1c6f2eef35639361c96c0"
+}

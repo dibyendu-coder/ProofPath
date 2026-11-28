@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "33333333-3333-4333-8333-333333333333",
+  "caseId": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+  "analysisId": "33333333-3333-4333-8333-333333333333",
+  "analyzedAt": "2026-11-25T00:00:00.000Z",
+  "exportedAt": "2026-11-28T12:00:00.000Z",
+  "sourceType": "text",
+  "extractionMethod": "user_supplied",
+  "sourceUrl": null,
+  "reviewedSource": null,
+  "summary": "The source does not provide enough detail to assess the opportunity.",
+  "risk": {
+    "score": 0,
+    "classification": "Inconclusive",
+    "explanation": "The source is too sparse for a supported warning-sign assessment."
+  },
+  "findings": [],
+  "evidence": [],
+  "missingInformation": [
+    "Employer identity",
+    "Responsibilities and duration",
+    "Selection process"
+  ],
+  "uncertaintyIndicators": [
+    "Recruiter identity is unconfirmed"
+  ],
+  "recommendedActions": [
+    "Request written role details."
+  ],
+  "limitations": [
+    "Insufficient source information."
+  ],
+  "ocrWarnings": [],
+  "model": "openai/gpt-oss-20b",
+  "verification": {
+    "total": 2,
+    "started": 0,
+    "completed": 0,
+    "remaining": 2,
+    "unresolvedHigh": 0,
+    "actions": [
+      {
+        "id": "verify:33333333-3333-4333-8333-333333333333:company_identity",
+        "title": "Check the organization identity",
+        "priority": "standard",
+        "status": "not_started",
+        "basis": "missing_detail",
+        "method": "Use a known official website or published contact channel, not a link supplied only in the message.",
+        "completionCriteria": "Record the independently found listing or contact response and any differences.",
+        "findingIds": []
+      },
+      {
+        "id": "verify:33333333-3333-4333-8333-333333333333:opportunity_details",
+        "title": "Clarify role and selection details",
+        "priority": "standard",
+        "status": "not_started",
+        "basis": "missing_detail",
+        "method": "Request a role description and compare it with a listing you find independently.",
+        "completionCriteria": "Record the role details and any official listing; unanswered details remain unresolved.",
+        "findingIds": []
+      }
+    ]
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "opportunity:33333333-3333-4333-8333-333333333333",
+        "type": "OPPORTUNITY",
+        "title": "Opportunity under review",
+        "description": "The source does not provide enough detail to assess the opportunity.",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "uncertainty:Missing%20information%3Aemployer%20identity",
+        "type": "UNCERTAINTY",
+        "title": "Missing information",
+        "description": "Employer identity",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "uncertainty:Missing%20information%3Aresponsibilities%20and%20duration",
+        "type": "UNCERTAINTY",
+        "title": "Missing information",
+        "description": "Responsibilities and duration",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "uncertainty:Missing%20information%3Aselection%20process",
+        "type": "UNCERTAINTY",
+        "title": "Missing information",
+        "description": "Selection process",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "type": "UNCERTAINTY",
+        "title": "Uncertainty indicator",
+        "description": "Recruiter identity is unconfirmed",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "verify:33333333-3333-4333-8333-333333333333:company_identity",
+        "type": "VERIFICATION_ACTION",
+        "title": "Check the organization identity",
+        "description": "Missing detail identified in the report: Employer identity. Find the organization and role through sources you locate independently.",
+        "origin": "missing_detail",
+        "quotation": null
+      },
+      {
+        "id": "verify:33333333-3333-4333-8333-333333333333:opportunity_details",
+        "type": "VERIFICATION_ACTION",
+        "title": "Clarify role and selection details",
+        "description": "Missing detail identified in the report: Responsibilities and duration. Obtain written details of the opportunity and how candidates are selected.",
+        "origin": "missing_detail",
+        "quotation": null
+      }
+    ],
+    "edges": [
+      {
+        "from": "uncertainty:Missing%20information%3Aemployer%20identity",
+        "to": "opportunity:33333333-3333-4333-8333-333333333333",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "uncertainty:Missing%20information%3Aresponsibilities%20and%20duration",
+        "to": "opportunity:33333333-3333-4333-8333-333333333333",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "uncertainty:Missing%20information%3Aselection%20process",
+        "to": "opportunity:33333333-3333-4333-8333-333333333333",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "to": "opportunity:33333333-3333-4333-8333-333333333333",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "opportunity:33333333-3333-4333-8333-333333333333",
+        "to": "verify:33333333-3333-4333-8333-333333333333:company_identity",
+        "type": "REQUIRES_VERIFICATION"
+      },
+      {
+        "from": "opportunity:33333333-3333-4333-8333-333333333333",
+        "to": "verify:33333333-3333-4333-8333-333333333333:opportunity_details",
+        "type": "REQUIRES_VERIFICATION"
+      }
+    ]
+  },
+  "options": {
+    "includeSource": false,
+    "includeQuotations": true,
+    "includeContacts": false,
+    "includeSourceUrls": false,
+    "includeNotes": false,
+    "includeTimeline": false,
+    "includeGraph": true,
+    "fingerprint": true,
+    "customRedactionCount": 0
+  },
+  "disclaimer": "Warning signs are not proof of fraud. Checklist completion does not establish legitimacy. The warning-sign index is a heuristic, not a calibrated fraud probability. Independently verify important details.",
+  "fingerprint": "924a82fc8da2e5ef151c98cc64ce48ac880d53996d55ee07c8b9847aed00de93"
+}

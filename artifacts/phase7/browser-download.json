@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "a38c262f-35d0-4d3d-a068-c33fa293dc12",
+  "caseId": "63a74404-0424-4125-b5d3-f856e166ecab",
+  "analysisId": "a38c262f-35d0-4d3d-a068-c33fa293dc12",
+  "analyzedAt": "2026-11-25T00:00:00.000Z",
+  "exportedAt": "2026-11-28T14:46:34.870Z",
+  "sourceType": "text",
+  "extractionMethod": "unknown",
+  "sourceUrl": null,
+  "reviewedSource": null,
+  "summary": "The source contains warning signs.",
+  "risk": {
+    "score": 44,
+    "classification": "Elevated risk",
+    "explanation": "A heuristic warning-sign index."
+  },
+  "findings": [
+    {
+      "id": "F-01",
+      "title": "Upfront fee",
+      "severity": "high",
+      "category": "payment",
+      "explanation": "The source requests payment.",
+      "uncertainty": "low",
+      "quotation": "Pay ₹1,499 within 30 minutes to confirm your place.",
+      "quotationRedacted": false,
+      "evidenceId": "E-F-01",
+      "origin": "user_supplied",
+      "start": null,
+      "end": null
+    },
+    {
+      "id": "F-02",
+      "title": "Short deadline",
+      "severity": "medium",
+      "category": "urgency",
+      "explanation": "The source sets a 30-minute deadline.",
+      "uncertainty": "medium",
+      "quotation": "Pay ₹1,499 within 30 minutes to confirm your place.",
+      "quotationRedacted": false,
+      "evidenceId": "E-F-02",
+      "origin": "user_supplied",
+      "start": null,
+      "end": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E-F-01",
+      "findingIds": [
+        "F-01"
+      ],
+      "quotation": "Pay ₹1,499 within 30 minutes to confirm your place.",
+      "quotationRedacted": false,
+      "origin": "user_supplied",
+      "start": null,
+      "end": null
+    },
+    {
+      "id": "E-F-02",
+      "findingIds": [
+        "F-02"
+      ],
+      "quotation": "Pay ₹1,499 within 30 minutes to confirm your place.",
+      "quotationRedacted": false,
+      "origin": "user_supplied",
+      "start": null,
+      "end": null
+    }
+  ],
+  "missingInformation": [
+    "Official role listing"
+  ],
+  "uncertaintyIndicators": [
+    "Recruiter identity is unconfirmed"
+  ],
+  "recommendedActions": [
+    "Check the official careers page."
+  ],
+  "limitations": [
+    "No independent verification."
+  ],
+  "ocrWarnings": [],
+  "model": "openai/gpt-oss-20b",
+  "verification": {
+    "total": 3,
+    "started": 1,
+    "completed": 0,
+    "remaining": 3,
+    "unresolvedHigh": 0,
+    "actions": [
+      {
+        "id": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:payment",
+        "title": "Clarify the payment policy",
+        "priority": "high",
+        "status": "in_progress",
+        "basis": "finding",
+        "method": "Find the organization’s published contact details independently and ask for its written recruitment fee policy.",
+        "completionCriteria": "Record the policy response and compare it with an independently published policy. A reply alone is not proof.",
+        "findingIds": [
+          "F-01"
+        ]
+      },
+      {
+        "id": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:company_identity",
+        "title": "Check the organization identity",
+        "priority": "standard",
+        "status": "not_started",
+        "basis": "missing_detail",
+        "method": "Use a known official website or published contact channel, not a link supplied only in the message.",
+        "completionCriteria": "Record the independently found listing or contact response and any differences.",
+        "findingIds": []
+      },
+      {
+        "id": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:urgency",
+        "title": "Make time for independent checks",
+        "priority": "standard",
+        "status": "not_started",
+        "basis": "finding",
+        "method": "Request enough time to verify the role through an official channel.",
+        "completionCriteria": "Record the response and decide whether independent checks can be completed before any commitment.",
+        "findingIds": [
+          "F-02"
+        ]
+      }
+    ]
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "opportunity:a38c262f-35d0-4d3d-a068-c33fa293dc12",
+        "type": "OPPORTUNITY",
+        "title": "Opportunity under review",
+        "description": "The source contains warning signs.",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "evidence:33:84:user_supplied",
+        "type": "EVIDENCE",
+        "title": "Source quotation",
+        "description": "Pay ₹1,499 within 30 minutes to confirm your place.",
+        "origin": "user_supplied",
+        "quotation": "Pay ₹1,499 within 30 minutes to confirm your place."
+      },
+      {
+        "id": "finding:F-01",
+        "type": "RISK_FINDING",
+        "title": "Upfront fee",
+        "description": "The source requests payment.",
+        "origin": "user_supplied",
+        "quotation": "Pay ₹1,499 within 30 minutes to confirm your place."
+      },
+      {
+        "id": "finding:F-02",
+        "type": "RISK_FINDING",
+        "title": "Short deadline",
+        "description": "The source sets a 30-minute deadline.",
+        "origin": "user_supplied",
+        "quotation": "Pay ₹1,499 within 30 minutes to confirm your place."
+      },
+      {
+        "id": "evidence:0:32:user_supplied",
+        "type": "EVIDENCE",
+        "title": "Source quotation",
+        "description": "Frontend Engineering Internship.",
+        "origin": "user_supplied",
+        "quotation": "Frontend Engineering Internship."
+      },
+      {
+        "id": "claim:0:32:user_supplied",
+        "type": "CLAIM",
+        "title": "Frontend Engineering Internship",
+        "description": "Observed in the reviewed source; not independently verified.",
+        "origin": "user_supplied",
+        "quotation": "Frontend Engineering Internship."
+      },
+      {
+        "id": "uncertainty:Missing%20information%3Aofficial%20role%20listing",
+        "type": "UNCERTAINTY",
+        "title": "Missing information",
+        "description": "Official role listing",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "type": "UNCERTAINTY",
+        "title": "Uncertainty indicator",
+        "description": "Recruiter identity is unconfirmed",
+        "origin": "user_supplied",
+        "quotation": null
+      },
+      {
+        "id": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:payment",
+        "type": "VERIFICATION_ACTION",
+        "title": "Clarify the payment policy",
+        "description": "Check the requested fee through an independently found organization channel before paying anything.",
+        "origin": "finding",
+        "quotation": null
+      },
+      {
+        "id": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:company_identity",
+        "type": "VERIFICATION_ACTION",
+        "title": "Check the organization identity",
+        "description": "Missing detail identified in the report: Official role listing. Find the organization and role through sources you locate independently.",
+        "origin": "missing_detail",
+        "quotation": null
+      },
+      {
+        "id": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:urgency",
+        "type": "VERIFICATION_ACTION",
+        "title": "Make time for independent checks",
+        "description": "A short deadline should not prevent checking the opportunity.",
+        "origin": "finding",
+        "quotation": null
+      }
+    ],
+    "edges": [
+      {
+        "from": "finding:F-01",
+        "to": "opportunity:a38c262f-35d0-4d3d-a068-c33fa293dc12",
+        "type": "INDICATES"
+      },
+      {
+        "from": "evidence:33:84:user_supplied",
+        "to": "finding:F-01",
+        "type": "SUPPORTS"
+      },
+      {
+        "from": "finding:F-02",
+        "to": "opportunity:a38c262f-35d0-4d3d-a068-c33fa293dc12",
+        "type": "INDICATES"
+      },
+      {
+        "from": "evidence:33:84:user_supplied",
+        "to": "finding:F-02",
+        "type": "SUPPORTS"
+      },
+      {
+        "from": "claim:0:32:user_supplied",
+        "to": "opportunity:a38c262f-35d0-4d3d-a068-c33fa293dc12",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "evidence:0:32:user_supplied",
+        "to": "claim:0:32:user_supplied",
+        "type": "SUPPORTS"
+      },
+      {
+        "from": "uncertainty:Missing%20information%3Aofficial%20role%20listing",
+        "to": "opportunity:a38c262f-35d0-4d3d-a068-c33fa293dc12",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "uncertainty:Uncertainty%20indicator%3Arecruiter%20identity%20is%20unconfirmed",
+        "to": "opportunity:a38c262f-35d0-4d3d-a068-c33fa293dc12",
+        "type": "REMAINS_UNCONFIRMED"
+      },
+      {
+        "from": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:payment",
+        "to": "finding:F-01",
+        "type": "ADDRESSES"
+      },
+      {
+        "from": "opportunity:a38c262f-35d0-4d3d-a068-c33fa293dc12",
+        "to": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:company_identity",
+        "type": "REQUIRES_VERIFICATION"
+      },
+      {
+        "from": "verify:a38c262f-35d0-4d3d-a068-c33fa293dc12:urgency",
+        "to": "finding:F-02",
+        "type": "ADDRESSES"
+      }
+    ]
+  },
+  "options": {
+    "includeSource": false,
+    "includeQuotations": true,
+    "includeContacts": false,
+    "includeSourceUrls": false,
+    "includeNotes": false,
+    "includeTimeline": false,
+    "includeGraph": true,
+    "fingerprint": true,
+    "customRedactionCount": 0
+  },
+  "disclaimer": "Warning signs are not proof of fraud. Checklist completion does not establish legitimacy. The warning-sign index is a heuristic, not a calibrated fraud probability. Independently verify important details.",
+  "fingerprint": "b4b246afd9a486b033e470602881de0b771ca72dcccb2c810efe71641c10e1a4"
+}

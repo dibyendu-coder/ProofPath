@@ -2,6 +2,8 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import type { AnalysisReport, IntakeSuccess } from '../../shared/contracts';
 import { sourceSpan } from '../graph/buildEvidenceGraph';
 import { buildVerificationPlan } from '../verification/buildVerificationPlan';
+import type { VerificationState } from '../verification/types';
+import '../export/export.css';
 
 const EvidenceGraph = lazy(() =>
   import('../graph/EvidenceGraph').then((module) => ({
@@ -11,6 +13,11 @@ const EvidenceGraph = lazy(() =>
 const VerificationWorkspace = lazy(() =>
   import('../verification/VerificationWorkspace').then((module) => ({
     default: module.VerificationWorkspace,
+  })),
+);
+const ExportDialog = lazy(() =>
+  import('../export/ExportDialog').then((module) => ({
+    default: module.ExportDialog,
   })),
 );
 
@@ -81,8 +88,21 @@ async function requestReport(
   return payload;
 }
 
-function Report({ report, text }: { report: AnalysisReport; text: string }) {
+function Report({
+  report,
+  text,
+  result,
+}: {
+  report: AnalysisReport;
+  text: string;
+  result: IntakeSuccess;
+}) {
   const [selected, setSelected] = useState<string | null>(null);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [verificationState, setVerificationState] =
+    useState<VerificationState | null>(null);
+  const exportTrigger = useRef<HTMLButtonElement>(null);
+  const exportWasOpen = useRef(false);
   const [view, setView] = useState<'report' | 'graph' | 'verification'>(
     'report',
   );
@@ -125,8 +145,25 @@ function Report({ report, text }: { report: AnalysisReport; text: string }) {
     if (view === 'report' && sourceHighlight)
       sourceRef.current?.scrollIntoView?.({ block: 'center' });
   }, [view, sourceHighlight]);
+  useEffect(() => {
+    if (!exportOpen && exportWasOpen.current) exportTrigger.current?.focus();
+    exportWasOpen.current = exportOpen;
+  }, [exportOpen]);
   return (
     <article className="analysis-report" aria-labelledby="report-heading">
+      <div className="analysis-report__export">
+        <p>
+          Keep a copy of this investigation with privacy choices you control.
+          Review the final files before sharing.
+        </p>
+        <button
+          type="button"
+          ref={exportTrigger}
+          onClick={() => setExportOpen(true)}
+        >
+          Export report ↗
+        </button>
+      </div>
       <div className="analysis-report__views" aria-label="Investigation views">
         <button
           type="button"
@@ -307,6 +344,7 @@ function Report({ report, text }: { report: AnalysisReport; text: string }) {
         <Suspense fallback={<p role="status">Opening verification plan…</p>}>
           <VerificationWorkspace
             plan={plan}
+            onStateChange={setVerificationState}
             active={view === 'verification'}
             focusFindingId={verificationFocus.findingId}
             focusActionId={verificationFocus.actionId}
@@ -321,6 +359,18 @@ function Report({ report, text }: { report: AnalysisReport; text: string }) {
           />
         </Suspense>
       </div>
+      {exportOpen && (
+        <Suspense fallback={<p role="status">Preparing export controls…</p>}>
+          <ExportDialog
+            report={report}
+            result={result}
+            reviewedText={text}
+            plan={plan}
+            verification={verificationState}
+            onClose={() => setExportOpen(false)}
+          />
+        </Suspense>
+      )}
     </article>
   );
 }
@@ -444,7 +494,12 @@ export function AnalysisReview({
         <span aria-hidden="true">↗</span>
       </button>
       {report && state === 'complete' && (
-        <Report key={report.analysisId} report={report} text={reviewedText} />
+        <Report
+          key={report.analysisId}
+          report={report}
+          text={reviewedText}
+          result={result}
+        />
       )}
     </div>
   );

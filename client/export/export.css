@@ -1,0 +1,332 @@
+.analysis-report__export {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.analysis-report__export p {
+  margin: 0;
+  max-width: 58ch;
+  color: var(--color-paper-ink);
+  font-size: 0.84rem;
+}
+.analysis-report__export button {
+  border: 1px solid var(--color-paper-ink);
+  background: var(--color-paper-ink);
+  color: var(--color-paper);
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  font: 700 0.74rem var(--font-mono);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.analysis-report__export button:hover,
+.analysis-report__export button:focus-visible {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #101316;
+}
+.export-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: auto;
+  padding: clamp(0.5rem, 3vw, 2rem);
+  background: rgba(6, 9, 10, 0.88);
+}
+.export-dialog {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  background: #e8e3d7;
+  color: #272a29;
+  border: 1px solid #b4afa3;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+  font-family: var(--font-sans);
+}
+.export-dialog * {
+  box-sizing: border-box;
+}
+.export-dialog button,
+.export-dialog input,
+.export-dialog textarea {
+  font: inherit;
+}
+.export-dialog button {
+  cursor: pointer;
+}
+.export-dialog button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+.export-dialog :focus-visible {
+  outline: 2px solid #b3564b;
+  outline-offset: 3px;
+}
+.export-dialog__header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+  border-bottom: 1px solid #bdb7ab;
+}
+.export-dialog__header span,
+.export-dialog__empty span {
+  color: #9d514a;
+  font: 0.7rem var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.export-dialog__header h2 {
+  margin: 0.5rem 0;
+  font: 400 clamp(2.2rem, 5vw, 4rem)/1 var(--font-display);
+}
+.export-dialog__header p {
+  margin: 0.6rem 0 0;
+  max-width: 60ch;
+  line-height: 1.55;
+}
+.export-dialog__header button,
+.export-dialog footer button {
+  background: none;
+  border: 1px solid #807c73;
+  color: inherit;
+  padding: 0.65rem 0.9rem;
+  white-space: nowrap;
+}
+.export-dialog__grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  min-height: 440px;
+}
+.export-dialog__settings {
+  padding: 1.6rem;
+  border-right: 1px solid #bdb7ab;
+}
+.export-dialog__settings h3,
+.export-dialog__preview h4 {
+  margin: 0 0 0.7rem;
+  font: 400 1.7rem var(--font-display);
+}
+.export-dialog__settings p {
+  font-size: 0.78rem;
+  color: #565b58;
+  line-height: 1.55;
+}
+.export-dialog__settings label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  cursor: pointer;
+}
+.export-dialog__settings input {
+  accent-color: #a95147;
+  margin-top: 0.14rem;
+}
+.export-dialog__settings .export-dialog__terms {
+  display: block;
+  margin-top: 1.6rem;
+  font: 0.75rem var(--font-mono);
+  text-transform: uppercase;
+}
+.export-dialog__terms textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.65rem;
+  padding: 0.7rem;
+  border: 1px solid #aaa397;
+  background: #f4f0e8;
+  color: #272a29;
+  font: 0.82rem/1.5 var(--font-sans);
+  text-transform: none;
+  resize: vertical;
+}
+.export-dialog__primary,
+.export-dialog__download button {
+  background: #b6594d;
+  color: #fffaf4;
+  border: 1px solid #b6594d;
+  padding: 0.8rem 1rem;
+  font: 700 0.75rem var(--font-mono) !important;
+  text-transform: uppercase;
+}
+.export-dialog__primary:hover,
+.export-dialog__download button:hover {
+  background: #923c32;
+}
+.export-dialog__preview {
+  min-width: 0;
+  padding: 1.6rem;
+  background: #dcd7cb;
+}
+.export-dialog__empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: #515653;
+}
+.export-dialog__empty p {
+  max-width: 46ch;
+  margin: 1rem auto;
+}
+.export-dialog__download {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.2rem;
+}
+.export-dialog__download > div {
+  margin-right: auto;
+}
+.export-dialog__download strong,
+.export-dialog__download small {
+  display: block;
+}
+.export-dialog__download small {
+  color: #62645f;
+  margin-top: 0.25rem;
+}
+.export-preview {
+  max-height: min(65vh, 850px);
+  overflow: auto;
+  background: #faf8f3;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+  padding: clamp(1.1rem, 3vw, 2.5rem);
+  overflow-wrap: anywhere;
+}
+.export-preview header {
+  border-bottom: 2px solid #272a29;
+  padding-bottom: 1rem;
+}
+.export-preview header span {
+  font: 0.7rem var(--font-mono);
+  color: #b6594d;
+  text-transform: uppercase;
+}
+.export-preview header h3 {
+  font: 400 2.6rem/1 var(--font-display);
+  margin: 0.5rem 0;
+}
+.export-preview header p,
+.export-preview footer p {
+  color: #59605c;
+  font-size: 0.8rem;
+}
+.export-preview section {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #c7c2b8;
+}
+.export-preview h4 {
+  font: 0.76rem var(--font-mono) !important;
+  color: #a94f46;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.export-preview h5 {
+  margin: 1rem 0 0.4rem;
+  font: 700 1rem var(--font-display);
+}
+.export-preview p,
+.export-preview li {
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.export-preview strong {
+  font-weight: 700;
+}
+.export-preview blockquote {
+  margin: 0.8rem 0;
+  padding: 0.6rem 0.8rem;
+  border-left: 2px solid #b6594d;
+  background: #eeeae2;
+}
+.export-preview blockquote small {
+  display: block;
+  color: #a94f46;
+  text-transform: uppercase;
+  font: 0.65rem var(--font-mono);
+  margin-bottom: 0.35rem;
+}
+.export-preview__source {
+  white-space: pre-wrap;
+}
+.export-preview ol,
+.export-preview ul {
+  padding-left: 1.2rem;
+}
+.export-preview code {
+  font-size: 0.68rem;
+}
+.export-dialog__error,
+.export-dialog__message {
+  margin: 0;
+  padding: 0.8rem 1.6rem;
+  border-top: 1px solid #bdb7ab;
+}
+.export-dialog__error {
+  color: #8e3329;
+}
+.export-dialog footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.6rem;
+  border-top: 1px solid #bdb7ab;
+}
+.export-dialog footer p {
+  margin: 0;
+  max-width: 70ch;
+  color: #525753;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+@media (max-width: 800px) {
+  .export-dialog__grid {
+    grid-template-columns: 1fr;
+  }
+  .export-dialog__settings {
+    border-right: 0;
+    border-bottom: 1px solid #bdb7ab;
+  }
+  .export-dialog__settings label:not(.export-dialog__terms) {
+    display: inline-flex;
+    width: calc(50% - 1rem);
+    vertical-align: top;
+    margin: 0.6rem 0.5rem 0.6rem 0;
+  }
+}
+@media (max-width: 520px) {
+  .analysis-report__export {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .export-dialog__header {
+    flex-direction: column-reverse;
+  }
+  .export-dialog__settings label:not(.export-dialog__terms) {
+    width: 100%;
+  }
+  .export-dialog__download > div {
+    width: 100%;
+  }
+  .export-dialog footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .export-preview {
+    max-height: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .export-dialog *,
+  .analysis-report__export * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

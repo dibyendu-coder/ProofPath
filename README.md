@@ -68,6 +68,12 @@ After analysis, open **Verification plan** beside the report and graph. The brow
 
 Progress counts user activity only. It does not change the warning-sign index or establish authenticity. Notes, drafts, and action state remain in memory in this browser view; refreshing or leaving clears them. Reference URLs are never fetched, and notes are never sent to Groq. See [architecture](docs/architecture.md) for generation and state limits.
 
+## Shareable investigation reports
+
+After an analysis, use **Export report** to choose privacy settings, generate a preview, and download PDF or JSON files. Both downloads use the same validated, frozen in-browser snapshot. The default excludes the full reviewed source, contact details, source and reference URLs, private notes, and the local timeline. Evidence quotations and an evidence relationship map are included by default; turn either off in the dialog. You can enter up to 20 additional phrases to redact before previewing. Redacted quotations are marked, and offsets are omitted when they no longer match the exported text. Review each downloaded file before sharing: pattern-based redaction cannot catch every personal detail.
+
+PDF export uses a lazy-loaded client-side renderer with a bundled Noto Sans font for selectable Unicode text, including `₹`. The document uses A4 pages, page numbers, an evidence register, a compact relationship diagram plus structured graph connections, verification actions, limitations, and a disclaimer. JSON follows schema `1.0.0`. A SHA-256 fingerprint is computed from the canonical, redacted JSON payload with the fingerprint field excluded, then appears in both files when selected. A fingerprint can reveal a changed payload when compared with a trusted original; it is not a signature or proof of authenticity. No report is uploaded or hosted, and export makes no new Groq request. See [architecture](docs/architecture.md) for the schema, resource limits, and known browser and font limitations.
+
 ## Intake API contract
 
 `POST /api/intake` accepts JSON for text and URLs:
