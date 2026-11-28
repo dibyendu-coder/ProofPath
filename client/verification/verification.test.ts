@@ -52,6 +52,9 @@ describe('deterministic verification plan', () => {
     expect(
       plan.actions.filter((item) => item.category === 'company_identity'),
     ).toHaveLength(1);
+    expect(
+      plan.actions.filter((item) => item.basis === 'report_recommendation'),
+    ).toHaveLength(0);
     expect(new Set(plan.actions.map((item) => item.id)).size).toBe(
       plan.actions.length,
     );

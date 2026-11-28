@@ -171,7 +171,11 @@ export function categoryForMissing(text: string): VerificationCategory {
     return 'recruiter_identity';
   if (/company|employer|organization|organisation/.test(value))
     return 'company_identity';
-  if (/listing|posting|vacancy|career portal/.test(value))
+  if (
+    /listing|posting|vacancy|career portal|careers? (?:page|site|website)|official (?:website|site)/.test(
+      value,
+    )
+  )
     return 'company_identity';
   if (
     /responsibilit|duration|selection|role|stipend|salary|supervisor|reporting/.test(

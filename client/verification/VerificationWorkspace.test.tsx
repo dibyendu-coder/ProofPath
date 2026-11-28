@@ -65,7 +65,9 @@ describe('verification workspace', () => {
         screen.getByLabelText('Selected verification action').textContent,
       ).toContain(expected);
       expect(screen.queryByText('Supported findings')).toBeNull();
-      await user.click(screen.getAllByRole('button', { name: 'Copy question' })[0]);
+      await user.click(
+        screen.getAllByRole('button', { name: 'Copy question' })[0],
+      );
       expect(writeText).toHaveBeenCalledTimes(1);
       const draft = screen.getByLabelText('Editable message');
       await user.clear(draft);
